@@ -1,7 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import * as ROUTES from '../../routes/Routes';
-
+import React from "react";
+import { Link } from "react-router-dom";
+import * as ROUTES from "../../routes/Routes";
 
 const Navigation = () => (
   <div>
@@ -12,7 +11,6 @@ const Navigation = () => (
       <li>
         <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
       </li>
-    
     </ul>
   </div>
 );

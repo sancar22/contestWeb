@@ -1,64 +1,59 @@
-import React, {useState, useEffect} from 'react';
-import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow} from 'react-google-maps'
-import * as parkData from '../../testData/brigadistas.json'
-import {useSelector, useDispatch} from 'react-redux'
-import {selectMarker} from '../../actions/index'
-
-
+import React, { useState, useEffect } from "react";
+import {
+  GoogleMap,
+  withScriptjs,
+  withGoogleMap,
+  Marker,
+  InfoWindow
+} from "react-google-maps";
+import * as parkData from "../../testData/brigadistas.json";
+import { useSelector, useDispatch } from "react-redux";
+import { selectMarker } from "../../actions/index";
+import app from "firebase/app";
+import "firebase/auth";
+import "firebase/firebase-database";
 
 function Map() {
+  const [selectedPark, setSelectedPark] = useState();
+  const brigadistas = useSelector(state => state.brigada); // Para acceder al estado global de brigadistas
+  const dispatch = useDispatch();
 
-    const [selectedPark, setSelectedPark] = useState(null) // Para pop-up
-    const [selectedList, setSelectedList] = useState([]) // Para icono 
-    const [click, setClick] = useState(false)
-    const seleccionados = useSelector(state => state.brigada)
-    const dispatch = useDispatch()
-    React.useEffect(()=>{
-            //console.log(selectedList)
-       
-    })
+  const onMarkerClickHandler = brigadista => {
+    app
+      .database()
+      .ref("/Users/" + brigadista.UID)
+      .update({
+        selected: !brigadista.selected
+      });
+  };
 
-    const onMarkerClickHandler = (park) => {
-            console.log(Markers)
-            console.log(park.properties.PARK_ID)
-            let index = Markers.findIndex(x => x.key === park.properties.PARK_ID.toString())
-            console.log(index)
-        
-            
-            //setSelectedList([...selectedList, park.properties.PARK_ID])
-    
-        }
-      
-    let Markers = parkData.features.map(park => (
-        <Marker
-          key={park.properties.PARK_ID}
-          position={{
-            lat: park.geometry.coordinates[1],
-            lng: park.geometry.coordinates[0]
-          }}
-          //onMouseOver={ ()=> 
-            //setSelectedPark(park)
-          //
-          onClick={() => dispatch(selectMarker(park.properties.PARK_ID))}
-          label={park.properties.NAME}
-          icon={{
-              url: click ? '/icon1.png' : '/icon2.jpg',
-              scaledSize: new window.google.maps.Size(25,25)
-            
-          }}
-        />
-      ))
-    
-      console.log(Markers)
+  let Markers = brigadistas.brigadeListOnline.map(brigadista => (
+    <Marker
+      key={brigadista.UID}
+      position={{
+        lat: brigadista.Latitud,
+        lng: brigadista.Longitud
+      }}
+      //onMouseOver={ ()=>
+      //setSelectedPark(park)
+      //
+      onClick={() => onMarkerClickHandler(brigadista)}
+      label={brigadista.Email}
+      icon={{
+        url: brigadista.selected ? "icon1.png" : "icon2.jpg",
+        scaledSize: new window.google.maps.Size(25, 25)
+      }}
+    />
+  ));
 
-    return (
-<GoogleMap
+  return (
+    <GoogleMap
       defaultZoom={10}
-      defaultCenter={{ lat: 45.4211, lng: -75.6903 }}
+      defaultCenter={{ lat: 11.0082944, lng: -74.8340518 }}
     >
       {Markers}
 
-    {selectedPark && (
+      {selectedPark && (
         <InfoWindow
           onCloseClick={() => {
             setSelectedPark(null);
@@ -69,20 +64,16 @@ function Map() {
           }}
         >
           <div>
-            <img src={require('./brigada1.jpg')}/>
+            <img src={require("./brigada1.jpg")} />
             <h1>Roberto Gutiérrez</h1>
             <p1>Uno de los brigadistas más destacados</p1>
-           
           </div>
         </InfoWindow>
       )}
-
-      
-
     </GoogleMap>
-    )
+  );
 }
 
-const WrappedMap = withScriptjs(withGoogleMap(Map))
+const WrappedMap = withScriptjs(withGoogleMap(Map));
 
-export default WrappedMap
+export default WrappedMap;

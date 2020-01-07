@@ -1,29 +1,22 @@
-
-
 const initState = {
-    brigadeList: [],
-    data : {},
-    selectedBrigade: [60000],
-    number: 1,
-    string: ''
-} 
+  brigadeListOnline: [],
+  selectedBrigade: []
+};
 
-const brigadaReducer = (state=initState, action) => {
+const brigadaReducer = (state = initState, action) => {
+  switch (action.type) {
+    case "SELECT_GUARDS": // Marcadores
+      return {
+        ...state
+      };
+    case "SELECT_ONLINE": // Brigadistas online
+      return {
+        ...state,
+        brigadeListOnline: action.payload
+      };
+    default:
+      return state;
+  }
+};
 
-    switch(action.type){
-        case 'SELECT_GUARDS':
-            return {
-            ...state,
-            selected: action.payload
-            
-            }
-        case 'DECREMENT1':
-            return state
-        default:
-            return state
-    }
-
-}
-
-
-export default brigadaReducer
+export default brigadaReducer;
