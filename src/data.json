@@ -1,0 +1,98 @@
+{
+    "casos": [
+       {
+            "id": 1,
+            "encargado": ["Gustavo cerati","Brigadista B"],
+            "time": "2018-07-02 13:07",
+            "description": "Ataque de un gato",
+            "ubicacion": "Bloque L",
+            "estado":true,
+            "reporte":[{"name":"Brigadista B","message":"Toco pedir Ayuda"},{"name":"Brigadista c","message":"Buscando Camillas"}]
+        },
+       {
+            "id": 2,
+            "encargado": ["Gustavo cerati","Brigadista B"],
+            "time": "2018-07-02 13:07",
+            "description": "Problemas en la fuente",
+            "ubicacion": "Bloque D",
+            "estado":false,
+            "reporte":[{"name":"Brigadista D","message":"Llamar a refuerzos"},{"name":"Brigadista c","message":"Buscando Camillas"}]
+
+        },
+        {
+            "id": 3,
+            "encargado": ["Gustavo cerati","Brigadista c"],
+            "time": "2018-03-29 13:07",
+            "description": "Ascensor averiado",
+            "ubicacion": "Bloque K",
+            "estado":true,
+            "reporte":[{"name":"Brigadista B","message":"Toco pedir Ayuda"},{"name":"Brigadista c","message":"Buscando Camillas"}]
+
+        },
+         {
+            "id": 4,
+            "encargado": ["Andres"],
+            "time": "2018-08-18 21:07",
+            "description": "Ascensor averiado",
+            "ubicacion": "Bloque K",
+            "estado":false,
+            "reporte":[{"name":"Brigadista c","message":"Buscando Camillas"}]
+
+        }
+    ],
+
+    "brigadistas": [{
+            "id": "UIDDDDXXXX",
+            "nombre": "javier",
+            "lat": 10.223,
+            "lng": -74.39,
+            "state": "1",
+            "rol": "Brigadista"
+
+
+        },
+        {
+            "id": 2,
+            "nombre": "Archundia gonzales",
+            "lat": 15.223,
+            "lng": -74.39,
+            "state": "1",
+            "rol": "Seguridad"
+
+        },
+        {
+            "id": 4,
+            "nombre": "Alfonzo",
+            "lat": 16.223,
+            "lng": -80.39,
+            "state": "3",
+            "rol": "Externo"
+
+        },
+        {
+            "id": 5,
+            "nombre": "Guillermo",
+            "lat": 14.223,
+            "lng": -86.39,
+            "state": "3",
+            "rol": "Externo"
+
+        }
+    ],
+    "places":[
+        {"name":"Bloque D","location":{}},
+        {"name":"Bloque F","location":{}},
+        {"name":"Bloque A","location":{}},
+        {"name":"Bloque E","location":{}},
+        {"name":"Bloque I","location":{}}
+    ],
+    "prioridades":[
+        {"id":"1","name":"Prioridad 1"},
+        {"id":"2","name":"Prioridad 2"},
+        {"id":"3","name":"Prioridad 3"},
+        {"id":"4","name":"Prioridad 4"},
+        {"id":"5","name":"Prioridad 5"}
+
+    ]
+
+}

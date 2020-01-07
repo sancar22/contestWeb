@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow} from 'react-google-maps'
 import * as parkData from '../../testData/brigadistas.json'
+import {useSelector, useDispatch} from 'react-redux'
+import {selectMarker} from '../../actions/index'
 
 
 
@@ -9,7 +11,8 @@ function Map() {
     const [selectedPark, setSelectedPark] = useState(null) // Para pop-up
     const [selectedList, setSelectedList] = useState([]) // Para icono 
     const [click, setClick] = useState(false)
-
+    const seleccionados = useSelector(state => state.brigada)
+    const dispatch = useDispatch()
     React.useEffect(()=>{
             //console.log(selectedList)
        
@@ -36,7 +39,7 @@ function Map() {
           //onMouseOver={ ()=> 
             //setSelectedPark(park)
           //
-          onClick={() => setSelectedPark(park)}
+          onClick={() => dispatch(selectMarker(park.properties.PARK_ID))}
           label={park.properties.NAME}
           icon={{
               url: click ? '/icon1.png' : '/icon2.jpg',

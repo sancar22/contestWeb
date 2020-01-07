@@ -19,9 +19,11 @@ function App () {
 
 	    useEffect(() => {
 		    firebase.isInitialized().then(val => {
-			  setFirebaseInitialized(val)
-		})
-	})
+        setFirebaseInitialized(val)
+        firebase.getDataOnlineUsers();   // Esto se actualiza cada vez que se cambie algo en la base de datos         
+        })
+      })
+  
     return firebaseInitialized !== false ? (
       <Router>
       <div>

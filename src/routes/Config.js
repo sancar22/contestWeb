@@ -2,6 +2,8 @@ import app from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firebase-firestore'
 import 'firebase/firebase-database'
+import { getDefaultWatermarks } from 'istanbul-lib-report';
+import React from 'react'
 
 
 const config = {
@@ -30,6 +32,18 @@ const config = {
       logout(){
           return this.auth.signOut()
       }
+      
+      getDataAllUsers() {
+        return this.db.ref('/Users').on('value', snapshot =>{
+            const firebaseData = snapshot.val()
+         })
+     }
+      getDataOnlineUsers(){
+       return this.db.ref('/Users').orderByChild('online').equalTo(true).on('value',snapshot=>{
+           const firebaseData = snapshot.val()
+          
+       })
+    }
 
       async register(email, password){
           await this.auth.createUserWithEmailAndPassword(email,password)
@@ -39,6 +53,7 @@ const config = {
 		return new Promise(resolve => {
 			this.auth.onAuthStateChanged(resolve)
         })
+
         
         
     }
