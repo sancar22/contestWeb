@@ -1,14 +1,18 @@
 {
-  "name": "contest_web",
+  "name": "brigada_web",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
+    "firebase": "^6.6.2",
+    "mdbreact": "^4.20.0",
+    "react": "^16.9.0",
+    "react-bootstrap": "^1.0.0-beta.12",
+    "react-dom": "^16.9.0",
+    "react-google-maps": "^9.4.5",
+    "react-redux": "^7.1.1",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1",
+    "redux": "^4.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
