@@ -1,13 +1,10 @@
-import counterReducer from './counter'
-import loggedReducer from './isLogged'
+
 import brigadaReducer from './brigada'
 import {combineReducers} from 'redux'
 
 
 
 const allReducer = combineReducers({
-    counter: counterReducer, // accessed by counter or any name
-    isLogged: loggedReducer,
     brigada: brigadaReducer
 })
 

@@ -34,10 +34,11 @@ function App() {
         const firebaseData = _.toArray(snapshot.val()); // Pasar el snapshot a un array
         //console.log(firebaseData)
         dispatch(selectOnlineGuards(firebaseData)); // Se hace un dispatch a la store para guardarlo en el estado global
+    
       });
   }
-  function resetSelected() {
-    console.log("Pasé por acá");
+  function resetSelected() { 
+    // Para al refrescar la página deseleccionar todos los marcadores 
     return app
       .database()
       .ref("/Users")
@@ -54,13 +55,13 @@ function App() {
       });
   }
 
-  useEffect(() => {
+  useEffect(() => {  // Se va a ejecutar una vez
     firebase.isInitialized().then(val => {
       setFirebaseInitialized(val);
-      // Esto se actualiza cada vez que se cambie algo en la base de datos
+      
     });
     resetSelected();
-    getDataOnlineUsers();
+    getDataOnlineUsers();  // Esto se actualiza cada vez que se cambie algo en la base de datos
   }, []);
 
   return firebaseInitialized !== false ? (

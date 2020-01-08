@@ -6,7 +6,6 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
-import * as parkData from "../../testData/brigadistas.json";
 import { useSelector, useDispatch } from "react-redux";
 import { selectMarker } from "../../actions/index";
 import app from "firebase/app";
@@ -14,19 +13,29 @@ import "firebase/auth";
 import "firebase/firebase-database";
 
 function Map() {
-  const [selectedPark, setSelectedPark] = useState();
+  const [selectedBrigade, setSelectedBrigade] = useState();
   const brigadistas = useSelector(state => state.brigada); // Para acceder al estado global de brigadistas
   const dispatch = useDispatch();
+  
 
-  const onMarkerClickHandler = brigadista => {
-    app
+  function onMarkerClickHandler(brigadista) {
+    // Para manejar el estado de seleccionado en el mapa
+      app
       .database()
       .ref("/Users/" + brigadista.UID)
       .update({
         selected: !brigadista.selected
-      });
+      })
+        
+      //setSelectedBrigade(brigadista) // Para mostrar info window
+       // Para añadirlo al estado global de seleccionado
   };
 
+  useEffect(()=>{
+    dispatch(selectMarker(brigadistas.brigadeListOnline))
+  },[brigadistas.brigadeListOnline]) // Por ahora solo depende de la lista de brigada Online
+  
+ 
   let Markers = brigadistas.brigadeListOnline.map(brigadista => (
     <Marker
       key={brigadista.UID}
@@ -53,14 +62,14 @@ function Map() {
     >
       {Markers}
 
-      {selectedPark && (
+      {selectedBrigade && (
         <InfoWindow
           onCloseClick={() => {
-            setSelectedPark(null);
+            setSelectedBrigade(null);
           }}
           position={{
-            lat: selectedPark.geometry.coordinates[1],
-            lng: selectedPark.geometry.coordinates[0]
+            lat: selectedBrigade.Latitud,
+            lng: selectedBrigade.Longitud
           }}
         >
           <div>
