@@ -15,7 +15,7 @@ import WrappedMap from "../map/Map";
 function HomePage(props) {
   
   const brigadistas = useSelector(state => state.brigada)
-
+  let fetch = require('node-fetch')
   app.auth().onAuthStateChanged(user => { 
     // Para llevarlo a login window si no está conectado
     if (!user) {
@@ -44,7 +44,30 @@ function HomePage(props) {
     props.history.replace("/"); //Irse a página de login al hacer logout
   }
   function sendCase(){
-      console.log(brigadistas.selectedBrigade)
+    console.log("Entré")
+    const PUSH_ENDPOINT = 'https://exp.host/--/api/v2/push/send';
+        let data = {
+            "to": brigadistas.selectedBrigade,
+            "title": "Hello",
+            "body": "World",
+            "sound": "default",
+            "data": {
+              "name": "Mañe",
+              "ape": "Towers"
+            },
+            "priority": 'high',
+
+        }
+    
+        fetch(PUSH_ENDPOINT, {
+          'mode': 'no-cors',
+          'method': 'POST',
+          'headers': {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+      }).catch(err => console.log(err))
   }
 }
 

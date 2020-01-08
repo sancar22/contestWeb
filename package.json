@@ -6,6 +6,7 @@
     "firebase": "^6.6.2",
     "lodash": "^4.17.15",
     "mdbreact": "^4.20.0",
+    "node-fetch": "^2.6.0",
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.9.0",
