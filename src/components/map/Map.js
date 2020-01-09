@@ -11,6 +11,8 @@ import { selectMarker } from "../../actions/index";
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-database";
+//import * as ReactLeaflet from 'react-leaflet';
+//const { Map: Mapa, TileLayer } = ReactLeaflet;
 
 function Map() {
   const [selectedBrigade, setSelectedBrigade] = useState();
@@ -57,8 +59,8 @@ function Map() {
 
   return (
     <GoogleMap
-      defaultZoom={10}
-      defaultCenter={{ lat: 11.0082944, lng: -74.8340518 }}
+      defaultZoom={30}
+      defaultCenter={{ lat: 11.0192471, lng: -74.8516066 }}
     >
       {Markers}
 

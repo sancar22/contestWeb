@@ -1,16 +1,14 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-//import { Button, FormGroup, FormControl, FormLabel} from "react-bootstrap";
-//import * as ROUTES from '../../routes/Routes'
-//import App from '../app/App'
 import {useSelector, useDispatch} from 'react-redux'
-//import {logManager} from '../../actions/index'
 import firebase from "../../routes/Config";
 import app from "firebase/app";
 import "firebase/auth";
+import "firebase/firebase-database";
 import Navigation from "../navigation/Navigation";
 import WrappedMap from "../map/Map";
-//app.initializeApp(config);
+import _ from 'lodash'
+
 
 function HomePage(props) {
   
@@ -25,8 +23,10 @@ function HomePage(props) {
 
   return (
     <div style={{ height: "70vw", width: "100vw" }}>
+      
       <Navigation />
-
+     
+     
       <WrappedMap
         googleMapURL={
           "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAXTE9UMazOIBLjnJDwLOKVupyvjoxtVuU"
@@ -35,6 +35,7 @@ function HomePage(props) {
         containerElement={<div style={{ height: `100%` }} />}
         mapElement={<div style={{ height: `100%` }} />}
       />
+    
       <button onClick={sendCase}>Send case</button>
       <button onClick={logout}>Log Out</button>
     </div>
@@ -43,13 +44,33 @@ function HomePage(props) {
     firebase.logout();
     props.history.replace("/"); //Irse a página de login al hacer logout
   }
+
+  function resetSelected() { 
+    // Para al refrescar la página deseleccionar todos los marcadores 
+    return app
+      .database()
+      .ref("/Users")
+      .once("value", snapshot => {
+        const fireData = _.toArray(snapshot.val());
+        fireData.forEach(child => {
+          app
+            .database()
+            .ref("/Users/" + child.UID)
+            .update({
+              selected: false
+            });
+        });
+      });
+  }
+
+
   function sendCase(){
     console.log("Entré")
     const PUSH_ENDPOINT = 'https://exp.host/--/api/v2/push/send';
         let data = {
             "to": brigadistas.selectedBrigade,
-            "title": "Hello",
-            "body": "World",
+            "title": "Carlos es un bollito",
+            "body": "Vale",
             "sound": "default",
             "data": {
               "name": "Mañe",
@@ -67,7 +88,8 @@ function HomePage(props) {
               'Content-Type': 'application/json',
           },
           body: JSON.stringify(data)
-      }).catch(err => console.log(err))
+      }).catch(err => alert('No ha seleccionado un brigadista o no hay conexión a internet.'))
+      resetSelected()
   }
 }
 
