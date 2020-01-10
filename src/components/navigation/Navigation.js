@@ -15,7 +15,7 @@ function Navigation(props) {
   }
 
   return (
-    <body>
+    <body className="bodyy">
       <section>
         <header>
           <div className="navBox">
@@ -30,13 +30,17 @@ function Navigation(props) {
                   <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
                 </li>
               </a>
+              
             </ul>
+            
             <input
               className="logout"
               type="image"
               src="logout1.png"
               onClick={logout}
             />
+          
+           
           </div>
         </header>
       </section>

@@ -1,0 +1,20 @@
+.list{
+    display: flex;
+    flex-direction: column;
+    right: 3.5vw;
+}
+
+.bod{
+    position: relative;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    right: 0vw;
+    margin-top:87vh;
+    height:87vh;
+    width: 30vw;
+    bottom: 87vh;
+    
+    
+   
+}

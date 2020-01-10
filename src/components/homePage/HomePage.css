@@ -1,19 +1,37 @@
+  
 .map {
     position: relative;
-    height: 530px;
-    margin-left: 350px;
+    display: flex;
+    flex-direction: column;
+    height: 87vh;
+    width: 75vw;
+    margin-left: 0vw;
+    bottom: 87vh;
+    margin-top:87vh;
+  
+    
+}
+
+.dive{
+    display:flex; flex-direction:row;
+}
+.bodyTotal{
+    position:relative;
+    height:100vh;
+    overflow: hidden;
     
 }
 
 .but{
     position:relative;
-    height:30px;
+    height:4vh;
     font-family: 'Courier New', Courier, monospace;
     background-color: white;
-    margin-top: 2px;
-    margin-left: 350px;
+    margin-top: 0vh;
+    margin-left: 25.8vw;
     border-radius: 10px;
     transition: 1s;
+    bottom: 83vh;
 }
 
 .but:hover{

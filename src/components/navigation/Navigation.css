@@ -1,22 +1,26 @@
-body{
+.bodyy{
     margin:0;
     padding: 0;
     font-family: sans-serif;
+    display: flex;
+    flex-direction: row;
+    height: 13vh;
+    
 }
 
 section{
     position: relative;
-    width: 100%;
-    height:85px;
+    width: 100vw;
+    height:13vh;
     background-position: center center;
 
 }
 
 header{
-    padding: 0 95px;
+    padding: 0 5vw;
     margin: 0px;
-    width: 100%;
-    height: 85px;
+    width: 100vw;
+    height: 13vh;
     box-sizing: border-box;
     background: rgba(255,255,255,0.8);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -25,8 +29,8 @@ header{
 
 ul{
     position: relative;
-    margin-left: 50px;
-    margin-top: 0px;
+    margin-left: 3.5vw;
+    margin-top: 0vh;
     padding:0;
     display: flex;
     float: left;
@@ -40,8 +44,8 @@ ul li {
 ul li a {
      position: relative;
      display: block;
-     padding: 10px 20px;
-     margin: 20px 0;
+     padding: 1.8vh 2.2vw;
+     margin: 3.2vh 0;
      text-transform: uppercase;
      text-decoration: none;
      color: #262626;
@@ -54,10 +58,13 @@ ul li a:hover{
 }
 
 .logout{
-    height: 40px;
-    width: 50px;
-    margin-top: 20px;
-    margin-left: 880px;
+    height: 7vh;
+    width: 3.5vw;
+    
+    padding: 3vh 0vw;
+    margin-left: 90vw;
+    display:block;
+    flex-direction: row;
     -webkit-transition:all 0.5s ease-out;
     -moz-transition:all 0.5s ease-out;
     -ms-transition:all 0.5s ease-out;
