@@ -14,7 +14,6 @@ function SignUp(props) {
   return (
     <div>
       <Navigation />
-      <hr />
       <h1>SignUp</h1>
     </div>
   );

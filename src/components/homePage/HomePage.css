@@ -1,0 +1,21 @@
+.map {
+    position: relative;
+    height: 530px;
+    margin-left: 350px;
+    
+}
+
+.but{
+    position:relative;
+    height:30px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: white;
+    margin-top: 2px;
+    margin-left: 350px;
+    border-radius: 10px;
+    transition: 1s;
+}
+
+.but:hover{
+    background-color: firebrick;
+}

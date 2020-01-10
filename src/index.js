@@ -6,6 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import { createStore } from "redux";
 import allReducer from "./reducers/index";
 import { Provider } from "react-redux";
+import 'leaflet/dist/leaflet.css';
 
 
 const store = createStore(
