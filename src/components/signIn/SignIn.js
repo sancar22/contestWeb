@@ -38,6 +38,7 @@ function SignIn(props) {
 
     //const dispatch = useDispatch();
     return (  
+      <body className="bodyb">
         <div className="loginBox">
          <img src={require('./logoBrigada.jpg')} className="user"/>
          <h2>¡Bienvenido!</h2>
@@ -63,6 +64,7 @@ function SignIn(props) {
             />
           </form>
         </div>
+        </body>
       )
 
       async function login (evt) {

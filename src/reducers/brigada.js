@@ -16,7 +16,12 @@ const brigadaReducer = (state = initState, action) => {
       return {...state,
         selectedBrigade: action.payload.filter(brigadista =>{
          return  brigadista.selected
-        }).map(brigade => brigade.Expotoken)
+        }).map(brigade => {
+          return{
+            Expotoken: brigade.Expotoken,
+            Email: brigade.Email
+          }
+        })
       }
     default:
       return state;

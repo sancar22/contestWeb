@@ -4,7 +4,9 @@
     font-family: sans-serif;
     display: flex;
     flex-direction: row;
-    height: 13vh;
+    height: 13%;
+    width: 100%;
+ 
     
 }
 
@@ -13,7 +15,7 @@ section{
     width: 100vw;
     height:13vh;
     background-position: center center;
-
+ 
 }
 
 header{
@@ -22,9 +24,10 @@ header{
     width: 100vw;
     height: 13vh;
     box-sizing: border-box;
-    background: rgba(255,255,255,0.8);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background: rgba(248, 245, 245, 0.8);
+
     transition: .5s;
+    
 }
 
 ul{
@@ -35,6 +38,7 @@ ul{
     display: flex;
     float: left;
     transition: .5s;
+    
 }
 
 ul li {
@@ -53,7 +57,7 @@ ul li a {
      transition: .5s;
 }
 ul li a:hover{
-    background: #000;
+    background: #b22222;
     color: #fff;
 }
 

@@ -11,31 +11,31 @@ import _ from "lodash";
 import { Map, Popup, TileLayer, Marker } from "react-leaflet";
 import "./HomePage.css";
 import L from "leaflet";
-import CaseForm from "../caseForm/CaseForm"
+import CaseForm from "../caseForm/CaseForm";
 
 function HomePage(props) {
   const brigadistas = useSelector(state => state.brigada); // Para acceder a estado global de Redux
   const dispatch = useDispatch();
-  const [windowWidth, setWindowWidth] = useState(null)
-  const [windowHeight, setWindowHeight] = useState(null)
+  const [windowWidth, setWindowWidth] = useState(null); //responsiveness
+  const [windowHeight, setWindowHeight] = useState(null); 
   useEffect(() => {
     dispatch(selectMarker(brigadistas.brigadeListOnline));
-    console.log(windowWidth)
   }, [brigadistas.brigadeListOnline]); // Por ahora solo depende de la lista de brigada Online
-  useEffect(()=>{
-      window.addEventListener('resize', () =>{
-        setWindowWidth(document.body.clientWidth)
-        setWindowHeight(document.body.clientHeight)
-       
-      })
-  },[])
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWindowWidth(document.body.clientWidth);
+    });
+    window.addEventListener("resize", () => {
+      setWindowHeight(window.innerHeight);
+    });
+  }, []);
   app.auth().onAuthStateChanged(user => {
     // Para llevarlo a login window si no está conectado
     if (!user) {
       props.history.push("/");
     }
   });
-
+ console.log(windowWidth, windowHeight)
   function onMarkerClickHandler(brigadista) {
     app
       .database()
@@ -45,14 +45,17 @@ function HomePage(props) {
       });
   }
 
-  const messageIcon = brigad => { // Crea íconos
+  const messageIcon = brigad => {
+    // Crea íconos
     return L.icon({
       iconUrl: brigad ? "icon1.png" : "icon2.png", // Decide colocar ícono dependiendo de estado
-      iconSize: brigad ? [30, 30] : [50,50]
+      iconSize: brigad ? [30, 30] : [50, 50]
     });
   };
 
-  let Markers = brigadistas.brigadeListOnline.map(brigadista => ( // Marcadores
+  let Markers = brigadistas.brigadeListOnline.map((
+    brigadista // Marcadores
+  ) => (
     <Marker
       key={brigadista.UID}
       position={[brigadista.Latitud, brigadista.Longitud]}
@@ -61,76 +64,24 @@ function HomePage(props) {
     ></Marker>
   ));
 
-  let fetch = require("node-fetch"); // Para hacer el http request
-
   return (
-    <body className="bodyTotal" style={{width:windowWidth, height:windowHeight}}>
-    
+    <body
+      className="bodyTotal"
+      style={{ width: windowWidth, height: windowHeight }}
+    >
       <Navigation />
-      <div className="dive" >
-      <CaseForm/>
-      <Map className="map" center={[11.0192471, -74.8505]} zoom={18}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
-        {Markers}
-      </Map>
-      
+      <div className="dive">
+        <CaseForm />
+        <Map className="map" center={[11.0192471, -74.8505]} zoom={18}>
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          />
+          {Markers}
+        </Map>
       </div>
-      
-
-    
     </body>
   );
-
-
-  function resetSelected() {
-    // Para al refrescar la página deseleccionar todos los marcadores
-    return app
-      .database()
-      .ref("/Users")
-      .once("value", snapshot => {
-        const fireData = _.toArray(snapshot.val());
-        fireData.forEach(child => {
-          app
-            .database()
-            .ref("/Users/" + child.UID)
-            .update({
-              selected: false
-            });
-        });
-      });
-  }
-
-  function sendCase() {
-    //Botón para enviar notificaciones
-    const PUSH_ENDPOINT = "https://exp.host/--/api/v2/push/send";
-    let data = {
-      to: brigadistas.selectedBrigade,
-      title: "Carlos es un bollito",
-      body: "Vale",
-      sound: "default",
-      data: {
-        name: "Mañe",
-        ape: "Towers"
-      },
-      priority: "high"
-    };
-
-    fetch(PUSH_ENDPOINT, {
-      mode: "no-cors",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    }).catch(err =>
-      alert("No ha seleccionado un brigadista o no hay conexión a internet.")
-    );
-    resetSelected();
-  }
 }
 
 export default withRouter(HomePage);

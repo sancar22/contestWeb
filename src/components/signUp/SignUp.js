@@ -5,7 +5,9 @@ import "firebase/auth";
 import { withRouter } from "react-router-dom";
 import CaseForm from "../caseForm/CaseForm"
 
+
 function SignUp(props) {
+
   app.auth().onAuthStateChanged(user => {
     if (!user) {
       props.history.push("/");

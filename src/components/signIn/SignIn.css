@@ -1,8 +1,9 @@
 @charset "UTF-8";
 @import 'https://fonts.googleapis.com/css?family=Noto+Sans';
-body {
+.bodyb {
   margin:0;
   padding:0;
+  height: 100vh;
   background: url(uni2.jpg);
   background-size: cover;
   font-family: sans-serif;

@@ -1,39 +1,25 @@
-  
+
 .map {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 87vh;
-    width: 75vw;
+    height: 100%;
+    width: 70%;
     margin-left: 0vw;
-    bottom: 87vh;
-    margin-top:87vh;
-  
-    
+       
 }
 
 .dive{
-    display:flex; flex-direction:row;
+    display:flex;
+    flex-direction: row;
+    height: 87%;
+    width: 100%;
 }
 .bodyTotal{
     position:relative;
     height:100vh;
     overflow: hidden;
     
+    
 }
 
-.but{
-    position:relative;
-    height:4vh;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: white;
-    margin-top: 0vh;
-    margin-left: 25.8vw;
-    border-radius: 10px;
-    transition: 1s;
-    bottom: 83vh;
-}
-
-.but:hover{
-    background-color: firebrick;
-}
