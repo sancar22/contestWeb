@@ -1,11 +1,13 @@
 
 import brigadaReducer from './brigada'
+import fillCaseInfoReducer from './fillCaseInfo'
 import {combineReducers} from 'redux'
 
 
 
 const allReducer = combineReducers({
-    brigada: brigadaReducer
+    brigada: brigadaReducer,
+    fillCase: fillCaseInfoReducer
 })
 
 // where you want to use it you have to export {useSelector} from react-redux

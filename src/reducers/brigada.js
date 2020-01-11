@@ -2,7 +2,9 @@ import _ from 'lodash'
 
 const initState = {
   brigadeListOnline: [],
-  selectedBrigade : []
+  selectedBrigade : [],
+  tempArray: [],
+  buttonClick: null
 };
 
 const brigadaReducer = (state = initState, action) => {
@@ -19,10 +21,16 @@ const brigadaReducer = (state = initState, action) => {
         }).map(brigade => {
           return{
             Expotoken: brigade.Expotoken,
-            Email: brigade.Email
+            Email: brigade.Email,
+            UID: brigade.UID,
+            receivedNotif: brigade.receivedNotif
           }
         })
-      }
+      };
+      case "TEMP_ARRAY":
+        return{...state, tempArray: action.payload};
+      case "NOTIF_PRESSED":
+        return {...state, buttonClick: action.payload}
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import firebase from "../../routes/Config";
 import app from "firebase/app";
 import "firebase/auth";
@@ -12,12 +12,12 @@ import "react-select/dist/react-select.css";
 import "react-virtualized/styles.css";
 import "react-virtualized-select/styles.css";
 import {options, optionsPlace, optionsCod, optionsCategory} from './Options'
-
-import { TextArea } from "semantic-ui-react";
-import { relative } from "path";
+import {fillPlace, fillCode, fillCategory, fillDescription} from '../../actions/index'
 
 function CaseForm() {
   const brigadistas = useSelector(state => state.brigada);
+  const fillCase = useSelector(state => state.fillCase)
+  const dispatch = useDispatch();
   const selectedBrigade = brigadistas.selectedBrigade.map((brigada, index) => (
     <li key={index} className="listele">
       {brigada.Email}
@@ -27,11 +27,14 @@ function CaseForm() {
 
   const filterOptions1 = createFilterOptions({options});
 
-  const [valuePlace, setValuePlace] = useState(null);
   const [valueDescription, setValueDescription] = useState("");
   const [valueCod, setValueCod] = useState(null);
   const [valueCategory, setValueCategory] = useState(null);
-console.log(valuePlace)
+  const [selectedButton, setSelectedButton] = useState(null)
+
+  
+
+
   return (
     <div className="bod">
       <br />
@@ -41,10 +44,10 @@ console.log(valuePlace)
       <div style={{ width: "26.3vw", marginLeft: "1.8vw", position:"relative", top:"3vh" }}>
         <VirtualizedSelect
           name="lugar"
-          value={valuePlace}
+          value={fillCase.lugarEmergencia}
           options={optionsPlace}
           filterOptions={filterOptions1}
-          onChange={val => setValuePlace(val)}
+          onChange={val => dispatch(fillPlace(val))}
         />
       </div>
 
@@ -62,18 +65,18 @@ console.log(valuePlace)
         <div className="div2" style={{width: "30%",marginLeft: "1.8vw"}}>
          <VirtualizedSelect
           name="lugar"
-          value={valueCod}
+          value={fillCase.codigo}
           options={optionsCod}
-          onChange={val => setValueCod(val)}
+          onChange={val => dispatch(fillCode(val))}
         />
         </div>
        
         <div className="div2" style={{ width: "50%",marginLeft: "2.3vw"}}>
          <VirtualizedSelect
           name="lugar"
-          value={valueCategory}
+          value={fillCase.categoria}
           options={optionsCategory}
-          onChange={val => setValueCategory(val)}
+          onChange={val => dispatch(fillCategory(val))}
         />
         </div>
       </div>
@@ -83,11 +86,11 @@ console.log(valuePlace)
       <textarea
         placeholder="Añadir información adicional pertinente..."
         className="inputtext"
-        value={valueDescription}
-        onChange={event => setValueDescription(event.target.value)}
+        value={fillCase.descAdicional}
+        onChange={event => dispatch(fillDescription(event.target.value))}
       />
       <button className="but" onClick={sendCase}>
-        Send Case
+        Enviar Alerta
       </button>
     </div>
   );
@@ -109,9 +112,40 @@ console.log(valuePlace)
         });
       });
   }
+ 
 
   function sendCase() {
     //Botón para enviar notificaciones
+        
+    
+
+
+     brigadistas.selectedBrigade.map(
+      brigade => app.database().ref("/Users/" + brigade.UID).update({notif:true}))
+     brigadistas.selectedBrigade.map(
+     brigade => app.database().ref("/Casos/" + brigade.UID + brigade.receivedNotif.toString()).update({lugar:fillCase.lugarEmergencia.label, codigo:fillCase.codigo.label, categoria:fillCase.categoria.label, descripcion:fillCase.descAdicional}))
+      dispatch(fillPlace(null))
+      dispatch(fillCode(null))
+      dispatch(fillCategory(null))
+      dispatch(fillDescription(''))
+      setTimeout(function(){
+      
+      brigadistas.selectedBrigade.map(
+      brigade => app.database().ref("/Users/" + brigade.UID).update({notif:false}))
+       
+      brigadistas.selectedBrigade.map( (brigade)=>
+        app.database().ref("/Users/" + brigade.UID).on("value", snapshot =>{
+            let data1 = snapshot.val().receivedNotif
+            let data2 = snapshot.val().accepted
+            let data3 = snapshot.val().UID
+            let data4 = data1-data2;
+            app.database().ref("/Users/" + data3).update({rejected:data4})
+        })
+      )
+      
+     
+       }, 10000);  
+
     const PUSH_ENDPOINT = "https://exp.host/--/api/v2/push/send";
     let data = {
       to: brigadistas.selectedBrigade.map(brigada => brigada.Expotoken),

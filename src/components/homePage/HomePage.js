@@ -20,6 +20,7 @@ function HomePage(props) {
   const [windowHeight, setWindowHeight] = useState(null); 
   useEffect(() => {
     dispatch(selectMarker(brigadistas.brigadeListOnline));
+    
   }, [brigadistas.brigadeListOnline]); // Por ahora solo depende de la lista de brigada Online
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -29,13 +30,20 @@ function HomePage(props) {
       setWindowHeight(window.innerHeight);
     });
   }, []);
+  useEffect(()=>{
+    console.log("Mounted")
+
+    return () => {
+      console.log("Unmounted")
+    }
+  },[])
   app.auth().onAuthStateChanged(user => {
     // Para llevarlo a login window si no está conectado
     if (!user) {
       props.history.push("/");
     }
   });
- console.log(windowWidth, windowHeight)
+
   function onMarkerClickHandler(brigadista) {
     app
       .database()

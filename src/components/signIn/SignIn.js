@@ -71,7 +71,7 @@ function SignIn(props) {
         evt.preventDefault();
         try{
           await firebase.login(email,password) // autenticación
-          props.history.replace('/home') // Si login es exitoso ir a /home
+          props.history.replace('/home') //  login es exitoso ir a /home
         }catch(e){
           alert("Wrong email or password")
         }
