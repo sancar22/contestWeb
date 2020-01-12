@@ -45,20 +45,29 @@ function HomePage(props) {
   });
 
   function onMarkerClickHandler(brigadista) {
+    if(!brigadista.ocupado){
     app
       .database()
       .ref("/Users/" + brigadista.UID)
       .update({
         selected: !brigadista.selected
       });
+    }
   }
 
   const messageIcon = brigad => {
     // Crea íconos
+    if(!brigad.ocupado){
     return L.icon({
-      iconUrl: brigad ? "icon1.png" : "icon2.png", // Decide colocar ícono dependiendo de estado
-      iconSize: brigad ? [30, 30] : [50, 50]
+      iconUrl: brigad.selected ? "icon1.png" : "icon2.png", // Decide colocar ícono dependiendo de estado
+      iconSize: brigad.selected ? [30, 30] : [50, 50]
     });
+  }else{
+    return L.icon({
+      iconUrl: "ocupado.jpg", // Decide colocar ícono dependiendo de estado
+      iconSize: [30, 30]
+    });
+  }
   };
 
   let Markers = brigadistas.brigadeListOnline.map((
@@ -67,7 +76,7 @@ function HomePage(props) {
     <Marker
       key={brigadista.UID}
       position={[brigadista.Latitud, brigadista.Longitud]}
-      icon={messageIcon(brigadista.selected)}
+      icon={messageIcon(brigadista)}
       onclick={() => onMarkerClickHandler(brigadista)}
     ></Marker>
   ));

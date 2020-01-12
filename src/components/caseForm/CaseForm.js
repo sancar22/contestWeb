@@ -27,7 +27,7 @@ function CaseForm() {
 
   const filterOptions1 = createFilterOptions({options});
 
-  const [valueDescription, setValueDescription] = useState("");
+  const [valueDescription, setValueDescription] = useState('');
   const [valueCod, setValueCod] = useState(null);
   const [valueCategory, setValueCategory] = useState(null);
   const [selectedButton, setSelectedButton] = useState(null)
@@ -96,7 +96,7 @@ function CaseForm() {
   );
 
   function resetSelected() {
-    // Para al refrescar la página deseleccionar todos los marcadores
+    // Para al enviar el caso deseleccionar a todos
     return app
       .database()
       .ref("/Users")
@@ -113,28 +113,52 @@ function CaseForm() {
       });
   }
  
-
-  function sendCase() {
+ 
+    function sendCase() {
     //Botón para enviar notificaciones
-        
+    Number.prototype.padLeft = function(base,chr){
+      var  len = (String(base || 10).length - String(this).length)+1;
+      return len > 0? new Array(len).join(chr || '0')+this : this;
+    }
+    let d = new Date,
+    dformat = [(d.getMonth()+1).padLeft(),
+               d.getDate().padLeft(),
+               d.getFullYear()].join('/') +' ' +
+              [d.getHours().padLeft(),
+               d.getMinutes().padLeft(),
+               d.getSeconds().padLeft()].join(':');
     
-
-
-     brigadistas.selectedBrigade.map(
-      brigade => app.database().ref("/Users/" + brigade.UID).update({notif:true}))
-     brigadistas.selectedBrigade.map(
-     brigade => app.database().ref("/Casos/" + brigade.UID + brigade.receivedNotif.toString()).update({lugar:fillCase.lugarEmergencia.label, codigo:fillCase.codigo.label, categoria:fillCase.categoria.label, descripcion:fillCase.descAdicional}))
+    console.time('Hello')
+  
+    console.log(Date.now())
+    brigadistas.selectedBrigade.map(
+    brigade => 
+    app
+    .database()
+    .ref("/Casos/" + brigade.UID + brigade.receivedNotif.toString())
+    .update({
+        lugar:fillCase.lugarEmergencia.label, 
+        codigo:fillCase.codigo.label, 
+        categoria:fillCase.categoria.label, 
+        descripcion:fillCase.descAdicional,
+        inicioFecha: dformat,
+        finalFecha: "",
+        tInicial: 0,
+        tFinal: 0,
+        tTranscurrido: 0
+      }))
       dispatch(fillPlace(null))
       dispatch(fillCode(null))
       dispatch(fillCategory(null))
       dispatch(fillDescription(''))
+      console.timeEnd('Hello')
       setTimeout(function(){
       
       brigadistas.selectedBrigade.map(
       brigade => app.database().ref("/Users/" + brigade.UID).update({notif:false}))
        
       brigadistas.selectedBrigade.map( (brigade)=>
-        app.database().ref("/Users/" + brigade.UID).on("value", snapshot =>{
+        app.database().ref("/Users/" + brigade.UID).once("value", snapshot =>{
             let data1 = snapshot.val().receivedNotif
             let data2 = snapshot.val().accepted
             let data3 = snapshot.val().UID
@@ -142,24 +166,24 @@ function CaseForm() {
             app.database().ref("/Users/" + data3).update({rejected:data4})
         })
       )
-      
+       console.log("Executed")
      
        }, 10000);  
 
     const PUSH_ENDPOINT = "https://exp.host/--/api/v2/push/send";
     let data = {
       to: brigadistas.selectedBrigade.map(brigada => brigada.Expotoken),
-      title: "Carlos es un bollito",
-      body: "Vale",
+      title: "He",
+      body: "---",
       sound: "default",
+      ttl: 5, //MODIFICAR DESPUÉS
       data: {
         name: "Mañe",
         ape: "Towers"
       },
       priority: "high"
     };
-
-    fetch(PUSH_ENDPOINT, {
+      fetch(PUSH_ENDPOINT, {
       mode: "no-cors",
       method: "POST",
       headers: {
