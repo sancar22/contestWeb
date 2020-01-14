@@ -2,41 +2,43 @@ import React, { useState, useEffect } from "react";
 import { selectMarker } from "../../actions/index";
 import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import firebase from "../../routes/Config";
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-database";
 import Navigation from "../navigation/Navigation";
-import _ from "lodash";
-import { Map, Popup, TileLayer, Marker } from "react-leaflet";
+import { Map, TileLayer, Marker } from "react-leaflet";
 import "./HomePage.css";
 import L from "leaflet";
 import CaseForm from "../caseForm/CaseForm";
 
 function HomePage(props) {
-  const brigadistas = useSelector(state => state.brigada); // Para acceder a estado global de Redux
+  const brigadistas = useSelector(state => state.brigada);
   const dispatch = useDispatch();
   const [windowWidth, setWindowWidth] = useState(null); //responsiveness
   const [windowHeight, setWindowHeight] = useState(null); 
+
   useEffect(() => {
     dispatch(selectMarker(brigadistas.brigadeListOnline));
-    
-  }, [brigadistas.brigadeListOnline]); // Por ahora solo depende de la lista de brigada Online
-  useEffect(() => {
+  }, [brigadistas.brigadeListOnline]); 
+  
+  useEffect(() => { // Responsiveness
     window.addEventListener("resize", () => {
       setWindowWidth(document.body.clientWidth);
     });
     window.addEventListener("resize", () => {
       setWindowHeight(window.innerHeight);
     });
-  }, []);
-  useEffect(()=>{
-    console.log("Mounted")
 
     return () => {
-      console.log("Unmounted")
+      window.removeEventListener("resize", () => {
+        setWindowWidth(document.body.clientWidth);
+      });
+      window.removeEventListener("resize", () => {
+        setWindowHeight(window.innerHeight);
+      });
     }
-  },[])
+  }, []);
+
   app.auth().onAuthStateChanged(user => {
     // Para llevarlo a login window si no está conectado
     if (!user) {
@@ -82,7 +84,7 @@ function HomePage(props) {
   ));
 
   return (
-    <body
+    <div
       className="bodyTotal"
       style={{ width: windowWidth, height: windowHeight }}
     >
@@ -97,7 +99,7 @@ function HomePage(props) {
           {Markers}
         </Map>
       </div>
-    </body>
+    </div>
   );
 }
 

@@ -2,9 +2,8 @@ import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-firestore";
 import "firebase/firebase-database";
-import { getDefaultWatermarks } from "istanbul-lib-report";
-import React from "react";
-import _ from "lodash";
+
+
 
 const config = {
   apiKey: "AIzaSyBXFpz69eQZ_N1SHO37O1e7mMmAlkWIikc",
@@ -19,6 +18,7 @@ const config = {
 
 class Firebase {
   constructor() {
+  
     app.initializeApp(config);
     this.auth = app.auth();
     this.db = app.database();

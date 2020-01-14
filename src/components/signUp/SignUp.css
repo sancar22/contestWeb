@@ -1,8 +1,67 @@
 .image {
+  border-radius: 50%;
+  width: 7vw;
+  height: 15vh;
+  margin-left: 26.5%;
+}
 
-     border-radius: 50%;
-     width: 100px; 
-     height: 100px;
-     margin-left: 50%; 
+.formDiv {
+  height: 86vh;
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+  margin-left: 20vw;
+  
+}
 
+.divRow {
+  display: flex;
+  height: 15vh;
+  width: 100vw;
+  position: relative;
+  padding: 2vh;
+}
+
+.inputCol {
+  position: relative;
+  flex-direction: column;
+  margin-right: -5vw;
+  margin-left: 11.2vw;
+}
+
+.twoContainer {
+  display: flex;
+  width: 100vw;
+  position: relative;
+
+  padding: 2vh;
+}
+
+.textDiv {
+  padding: 0 0 0.2vh 0;
+  font-size: 1.2vw;
+}
+
+.inputSignUp {
+  border-radius: 10px;
+  height: 4vh;
+  width: 15vw;
+}
+.inputSignUp::placeholder{
+   font-size: 1.2vw;
+}
+
+.buttonSignUp{
+     width: 10vw;
+     border-radius: 10px;
+     margin-left: 25vw;
+     margin-top: 5vh;
+     height: 5vh;
+     font-size: 1vw;
+     font-weight: bold;
+     transition: 0.8s;
+     
+}
+.buttonSignUp:hover{
+   background-color: green;
 }

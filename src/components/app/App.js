@@ -5,23 +5,25 @@ import SignIn from "../signIn/SignIn";
 import HomePage from "../homePage/HomePage";
 import SignUp from "../signUp/SignUp";
 import * as ROUTES from "../../routes/Routes";
-//import {useSelector, useDispatch} from 'react-redux'
-//import {logManager} from '../../actions/index'
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-database";
 import firebase from "../../routes/Config";
 import _ from "lodash";
-import { useSelector, useDispatch } from "react-redux";
-import { selectMarker } from "../../actions/index";
+import {useDispatch } from "react-redux";
 import { selectOnlineGuards } from "../../actions/index";
-
-//import Navigation from '../navigation/Navigation'
+import ClipLoader from 'react-spinners/ClipLoader';
+import {css} from '@emotion/core'
 
 function App() {
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);
 
   const dispatch = useDispatch();
+  const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+    margin-top: 40vh;`;
 
   function getDataOnlineUsers() {
     // Para obtener información de todos los usuarios online
@@ -32,7 +34,6 @@ function App() {
       .equalTo(true)
       .on("value", snapshot => {
         const firebaseData = _.toArray(snapshot.val()); // Pasar el snapshot a un array
-        //console.log(firebaseData)
         dispatch(selectOnlineGuards(firebaseData)); // Se hace un dispatch a la store para guardarlo en el estado global
     
       });
@@ -75,7 +76,13 @@ function App() {
       </div>
     </Router>
   ) : (
-    <h1>Loading</h1>
+    <ClipLoader
+          css={override}
+          sizeUnit={"px"}
+          size={150}
+          color={'#123abc'}
+          loading={!firebaseInitialized}
+      />
   );
 }
 
