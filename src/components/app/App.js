@@ -10,10 +10,10 @@ import "firebase/auth";
 import "firebase/firebase-database";
 import firebase from "../../routes/Config";
 import _ from "lodash";
-import {useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { selectOnlineGuards } from "../../actions/index";
-import ClipLoader from 'react-spinners/ClipLoader';
-import {css} from '@emotion/core'
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/core";
 
 function App() {
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);
@@ -23,7 +23,8 @@ function App() {
     display: block;
     margin: 0 auto;
     border-color: red;
-    margin-top: 40vh;`;
+    margin-top: 40vh;
+  `;
 
   function getDataOnlineUsers() {
     // Para obtener información de todos los usuarios online
@@ -33,36 +34,18 @@ function App() {
       .orderByChild("online")
       .equalTo(true)
       .on("value", snapshot => {
-        const firebaseData = _.toArray(snapshot.val()); // Pasar el snapshot a un array
+        const firebaseData = _.toArray(snapshot.val());
         dispatch(selectOnlineGuards(firebaseData)); // Se hace un dispatch a la store para guardarlo en el estado global
-    
-      });
-  }
-  function resetSelected() { 
-    // Para al refrescar la página deseleccionar todos los marcadores 
-    return app
-      .database()
-      .ref("/Users")
-      .once("value", snapshot => {
-        const fireData = _.toArray(snapshot.val());
-        fireData.forEach(child => {
-          app
-            .database()
-            .ref("/Users/" + child.UID)
-            .update({
-              selected: false
-            });
-        });
       });
   }
 
-  useEffect(() => {  // Se va a ejecutar una vez
+  useEffect(() => {
+    // Se va a ejecutar una vez
     firebase.isInitialized().then(val => {
       setFirebaseInitialized(val);
-      
     });
-    resetSelected();
-    getDataOnlineUsers();  // Esto se actualiza cada vez que se cambie algo en la base de datos
+    firebase.resetSelected(); // Para al refrescar la página deseleccionar todos los marcadores
+    getDataOnlineUsers();
   }, []);
 
   return firebaseInitialized !== false ? (
@@ -77,12 +60,12 @@ function App() {
     </Router>
   ) : (
     <ClipLoader
-          css={override}
-          sizeUnit={"px"}
-          size={150}
-          color={'#123abc'}
-          loading={!firebaseInitialized}
-      />
+      css={override}
+      sizeUnit={"px"}
+      size={150}
+      color={"#123abc"}
+      loading={!firebaseInitialized}
+    />
   );
 }
 

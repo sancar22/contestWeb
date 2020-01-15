@@ -11,7 +11,6 @@
   flex-direction: column;
   width: 60vw;
   margin-left: 20vw;
-  
 }
 
 .divRow {
@@ -47,21 +46,20 @@
   height: 4vh;
   width: 15vw;
 }
-.inputSignUp::placeholder{
-   font-size: 1.2vw;
+.inputSignUp::placeholder {
+  font-size: 1.2vw;
 }
 
-.buttonSignUp{
-     width: 10vw;
-     border-radius: 10px;
-     margin-left: 25vw;
-     margin-top: 5vh;
-     height: 5vh;
-     font-size: 1vw;
-     font-weight: bold;
-     transition: 0.8s;
-     
+.buttonSignUp {
+  width: 10vw;
+  border-radius: 10px;
+  margin-left: 25vw;
+  margin-top: 5vh;
+  height: 5vh;
+  font-size: 1vw;
+  font-weight: bold;
+  transition: 0.8s;
 }
-.buttonSignUp:hover{
-   background-color: green;
+.buttonSignUp:hover {
+  background-color: green;
 }

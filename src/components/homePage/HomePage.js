@@ -15,13 +15,14 @@ function HomePage(props) {
   const brigadistas = useSelector(state => state.brigada);
   const dispatch = useDispatch();
   const [windowWidth, setWindowWidth] = useState(null); //responsiveness
-  const [windowHeight, setWindowHeight] = useState(null); 
+  const [windowHeight, setWindowHeight] = useState(null);
 
   useEffect(() => {
     dispatch(selectMarker(brigadistas.brigadeListOnline));
-  }, [brigadistas.brigadeListOnline]); 
-  
-  useEffect(() => { // Responsiveness
+  }, [brigadistas.brigadeListOnline]);
+
+  useEffect(() => {
+    // Responsiveness
     window.addEventListener("resize", () => {
       setWindowWidth(document.body.clientWidth);
     });
@@ -36,7 +37,7 @@ function HomePage(props) {
       window.removeEventListener("resize", () => {
         setWindowHeight(window.innerHeight);
       });
-    }
+    };
   }, []);
 
   app.auth().onAuthStateChanged(user => {
@@ -47,29 +48,29 @@ function HomePage(props) {
   });
 
   function onMarkerClickHandler(brigadista) {
-    if(!brigadista.ocupado){
-    app
-      .database()
-      .ref("/Users/" + brigadista.UID)
-      .update({
-        selected: !brigadista.selected
-      });
+    if (!brigadista.ocupado) {
+      app
+        .database()
+        .ref("/Users/" + brigadista.UID)
+        .update({
+          selected: !brigadista.selected,
+        });
     }
   }
 
   const messageIcon = brigad => {
     // Crea íconos
-    if(!brigad.ocupado){
-    return L.icon({
-      iconUrl: brigad.selected ? "icon1.png" : "icon2.png", // Decide colocar ícono dependiendo de estado
-      iconSize: brigad.selected ? [30, 30] : [50, 50]
-    });
-  }else{
-    return L.icon({
-      iconUrl: "ocupado.jpg", // Decide colocar ícono dependiendo de estado
-      iconSize: [30, 30]
-    });
-  }
+    if (!brigad.ocupado) {
+      return L.icon({
+        iconUrl: brigad.selected ? "icon1.png" : "icon2.png", // Decide colocar ícono dependiendo de estado
+        iconSize: brigad.selected ? [30, 30] : [50, 50],
+      });
+    } else {
+      return L.icon({
+        iconUrl: "ocupado.jpg", // Decide colocar ícono dependiendo de estado
+        iconSize: [30, 30],
+      });
+    }
   };
 
   let Markers = brigadistas.brigadeListOnline.map((

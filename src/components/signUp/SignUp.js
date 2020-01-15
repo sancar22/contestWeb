@@ -4,21 +4,20 @@ import app from "firebase/app";
 import "firebase/auth";
 import { withRouter } from "react-router-dom";
 import "./SignUp.css";
-
-
+import FormInput from "../form/Form";
 
 function SignUp(props) {
- 
   const [fileB, setFileB] = useState(null);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [secondLast, setSecondLast] = useState('');
-  const [password, setPassword] = useState('');
-  const [confPass, setConfPass] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [secondLast, setSecondLast] = useState("");
+  const [password, setPassword] = useState("");
+  const [confPass, setConfPass] = useState("");
 
-  const [windowWidth, setWindowWidth] = useState(null); //responsiveness
+  const [windowWidth, setWindowWidth] = useState(null);
   const [windowHeight, setWindowHeight] = useState(null);
+
   app.auth().onAuthStateChanged(user => {
     if (!user) {
       props.history.push("/");
@@ -40,13 +39,9 @@ function SignUp(props) {
       window.removeEventListener("resize", () => {
         setWindowHeight(window.innerHeight);
       });
-    }
+    };
   }, []);
 
-  useEffect(() => {
-    console.log(fileB);
-  }, [fileB]);
-   
   // For image processing
   const readFile = event => {
     setFileB(URL.createObjectURL(event.target.files[0]));
@@ -56,25 +51,23 @@ function SignUp(props) {
   };
 
   const upload = useRef();
-//
+  //
 
   const register = evt => {
     evt.preventDefault();
-  
+
     try {
       if (email.length < 6) {
-        alert("Please enter at least 6 characters");
+        alert("Please enter at least 6 characters"); //Cambiar a Toast
         return;
-      }else if (password !== confPass){
-        alert("Passwords don't match")
+      } else if (password !== confPass) {
+        alert("Passwords don't match");
         return;
       }
-     app.auth().createUserWithEmailAndPassword(email.trim(), password); // Register user in firebase
-     
+      app.auth().createUserWithEmailAndPassword(email.trim(), password); // Registrar usuario a Firebase
     } catch (error) {
       console.log(error.toString());
     }
-  
   };
 
   return (
@@ -82,7 +75,6 @@ function SignUp(props) {
       style={{ width: windowWidth, height: windowHeight, overflow: "hidden" }}
     >
       <Navigation />
-     
 
       <form className="formDiv" onSubmit={register}>
         <div className="divRow">
@@ -108,7 +100,8 @@ function SignUp(props) {
         <div className="twoContainer">
           <div className="inputCol">
             <div className="textDiv">Primer Nombre:</div>
-            <input
+            <FormInput
+              name="First Name"
               type="text"
               placeholder="Primer Nombre"
               className="inputSignUp"
@@ -120,12 +113,13 @@ function SignUp(props) {
 
           <div className="inputCol">
             <div className="textDiv">Primer Apellido:</div>
-            <input
+            <FormInput
+              name="Last Name"
               type="text"
               placeholder="Primer Apellido"
-              required
               className="inputSignUp"
               value={lastName}
+              required
               onChange={evt => setLastName(evt.target.value)}
             />
           </div>
@@ -134,7 +128,8 @@ function SignUp(props) {
         <div className="twoContainer">
           <div className="inputCol">
             <div className="textDiv">Segundo Apellido:</div>
-            <input
+            <FormInput
+              name="Second Last"
               type="text"
               placeholder="Segundo Apellido"
               className="inputSignUp"
@@ -146,12 +141,13 @@ function SignUp(props) {
 
           <div className="inputCol">
             <div className="textDiv">Correo Electrónico:</div>
-            <input
+            <FormInput
+              name="Email"
               type="text"
               placeholder="Correo Electrónico"
-              required
               className="inputSignUp"
               value={email}
+              required
               onChange={evt => setEmail(evt.target.value)}
             />
           </div>
@@ -160,7 +156,8 @@ function SignUp(props) {
         <div className="twoContainer">
           <div className="inputCol">
             <div className="textDiv">Contraseña:</div>
-            <input
+            <FormInput
+              name="Pass"
               type="password"
               placeholder="******"
               className="inputSignUp"
@@ -172,25 +169,24 @@ function SignUp(props) {
 
           <div className="inputCol">
             <div className="textDiv">Confirmar Contraseña:</div>
-            <input
+            <FormInput
+              name="PassConf"
               type="password"
-              placeholder="******"
-              required
+              placeholder="*******"
               className="inputSignUp"
               value={confPass}
+              required
               onChange={evt => setConfPass(evt.target.value)}
             />
           </div>
-          
         </div>
-        <input
-        type="submit"
-        name = ""
-        value="Registrarse"
-        className = "buttonSignUp"
+        <FormInput
+          name=""
+          type="submit"
+          className="buttonSignUp"
+          value="Registrarse"
         />
       </form>
-      
     </div>
   );
 }
