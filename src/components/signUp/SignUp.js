@@ -6,6 +6,10 @@ import { withRouter } from "react-router-dom";
 import "./SignUp.css";
 import FormInput from "../form/Form";
 import firebase from "../../routes/Config";
+import FormInputE from "../form/FormE";
+import { toast } from "react-toastify";
+
+import CustomToast from "../custom-toast";
 
 function SignUp(props) {
     const [fileB, setFileB] = useState(null);
@@ -61,10 +65,15 @@ function SignUp(props) {
 
         try {
             if (email.length < 6) {
-                alert("Please enter at least 6 characters"); //Cambiar a Toast
+                toast(
+                    <CustomToast title="Correo debe tener por lo menos 6 caracteres" />
+                );
                 return;
             } else if (password !== confPass) {
-                alert("Passwords don't match");
+                toast(<CustomToast title="Contraseñas no coinciden" />);
+                return;
+            } else if (fileB === null) {
+                toast(<CustomToast title="Insertar Imagen" />);
                 return;
             }
 
@@ -74,8 +83,18 @@ function SignUp(props) {
                     firebase.fillDB(firstName, lastName, secondLast, email);
                     firebase.uploadImage(fileFB, email);
                     firebase.resetPassword(email);
+                    setFileB(null);
+                    setFirstName("");
+                    setLastName("");
+                    setSecondLast("");
+                    setEmail("");
+                    setPassword("");
+                    setConfPass("");
+                    toast(<CustomToast title="¡Registro exitoso!" />);
                 })
-                .catch(error => alert(error.toString()));
+                .catch(error =>
+                    toast(<CustomToast title="No es un correo válido" />)
+                );
         } catch (error) {
             console.log(error.toString());
         }
@@ -156,7 +175,7 @@ function SignUp(props) {
 
                     <div className="inputCol">
                         <div className="textDiv">Correo Electrónico:</div>
-                        <FormInput
+                        <FormInputE
                             name="Email"
                             type="text"
                             placeholder="Correo Electrónico"

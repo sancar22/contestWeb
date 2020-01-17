@@ -45,7 +45,6 @@ class Firebase {
     resetSelected() {
         return this.db.ref("/Users").once("value", snapshot => {
             const fireData = _.toArray(snapshot.val());
-            console.log(fireData);
             fireData.forEach(child => {
                 app.database()
                     .ref("/Users/" + child.Email.split(".")[0])
@@ -75,9 +74,10 @@ class Firebase {
                     let data2 = snapshot.val().accepted;
                     let data3 = snapshot.val().Email.split(".")[0];
                     let data4 = data1 - data2;
+                    let data5 = data2 / data1;
                     app.database()
                         .ref("/Users/" + data3)
-                        .update({ rejected: data4 });
+                        .update({ rejected: data4, acceptRatio: data5 });
                 })
         );
     }
@@ -164,6 +164,7 @@ class Firebase {
                 notif: false,
                 ocupado: false,
                 Longitud: -74.851163,
+                acceptRatio: 0,
             });
     }
     uploadImage(image, email) {

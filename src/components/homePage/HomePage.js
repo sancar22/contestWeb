@@ -6,7 +6,7 @@ import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-database";
 import Navigation from "../navigation/Navigation";
-import { Map, TileLayer, Marker } from "react-leaflet";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import "./HomePage.css";
 import L from "leaflet";
 import CaseForm from "../caseForm/CaseForm";
@@ -80,7 +80,27 @@ function HomePage(props) {
             position={[brigadista.Latitud, brigadista.Longitud]}
             icon={messageIcon(brigadista)}
             onclick={() => onMarkerClickHandler(brigadista)}
-        ></Marker>
+            onMouseOver={e => {
+                e.target.openPopup();
+            }}
+            onMouseOut={e => {
+                e.target.closePopup();
+            }}
+        >
+            <Popup>
+                <div className="popupContainer">
+                    <img src={brigadista.imagen} height="50" width="50" />
+                    <br />
+                    <div>{brigadista.nombre + " " + brigadista.apellido}</div>
+                    <br />
+                    <div>Casos Aceptados: {brigadista.accepted}</div>
+                    <br />
+                    <div>Casos Rechazados: {brigadista.rejected}</div>
+                    <br />
+                    <div>Casos Recibidos: {brigadista.receivedNotif}</div>
+                </div>
+            </Popup>
+        </Marker>
     ));
 
     return (

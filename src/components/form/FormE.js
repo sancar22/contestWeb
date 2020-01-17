@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import emailPropType from "email-prop-type";
 
-const FormInput = ({
+const FormInputE = ({
     name,
     type,
     placeholder,
@@ -27,24 +28,23 @@ const FormInput = ({
                 value={value}
                 className={className}
                 style={style}
-                required
             />
         </React.Fragment>
     );
 };
 
-FormInput.defaultProps = {
+FormInputE.defaultProps = {
     type: "text",
     className: "",
 };
 
-FormInput.propTypes = {
+FormInputE.propTypes = {
     name: PropTypes.string.isRequired,
     type: PropTypes.string,
     placeholder: PropTypes.string,
     type: PropTypes.oneOf(["text", "number", "password", "submit"]),
     className: PropTypes.string,
-    value: PropTypes.any,
+    value: emailPropType.isRequired,
 };
 
-export default FormInput;
+export default FormInputE;
