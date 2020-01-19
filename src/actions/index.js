@@ -1,4 +1,3 @@
-
 export const selectMarker = info => {
   return {
     type: "SELECT_GUARDS",
@@ -13,14 +12,12 @@ export const selectOnlineGuards = info => {
   };
 };
 
-
 export const tempArray = info => {
   return {
     type: "TEMP_ARRAY",
     payload: info
   };
 };
-
 
 export const notifPressed = info => {
   return {
@@ -29,14 +26,12 @@ export const notifPressed = info => {
   };
 };
 
-
 export const fillPlace = info => {
   return {
     type: "FILL_PLACE",
     payload: info
   };
 };
-
 
 export const fillCode = info => {
   return {
@@ -45,7 +40,6 @@ export const fillCode = info => {
   };
 };
 
-
 export const fillCategory = info => {
   return {
     type: "FILL_CATEGORY",
@@ -53,11 +47,16 @@ export const fillCategory = info => {
   };
 };
 
-
-
 export const fillDescription = info => {
   return {
     type: "FILL_DESCRIPTION",
+    payload: info
+  };
+};
+
+export const selectAll = info => {
+  return {
+    type: "SELECT_ALL",
     payload: info
   };
 };

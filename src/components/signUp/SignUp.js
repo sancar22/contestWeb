@@ -12,218 +12,221 @@ import { toast } from "react-toastify";
 import CustomToast from "../custom-toast";
 
 function SignUp(props) {
-    const [fileB, setFileB] = useState(null);
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [secondLast, setSecondLast] = useState("");
-    const [password, setPassword] = useState("");
-    const [confPass, setConfPass] = useState("");
-    const [fileFB, setFileFB] = useState(null);
+  const [fileB, setFileB] = useState(null);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [secondLast, setSecondLast] = useState("");
+  const [password, setPassword] = useState("");
+  const [confPass, setConfPass] = useState("");
+  const [fileFB, setFileFB] = useState(null);
 
-    const [windowWidth, setWindowWidth] = useState(null);
-    const [windowHeight, setWindowHeight] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(null);
+  const [windowHeight, setWindowHeight] = useState(null);
 
-    app.auth().onAuthStateChanged(user => {
-        if (!user) {
-            props.history.push("/");
-        }
+  app.auth().onAuthStateChanged(user => {
+    if (!user) {
+      props.history.push("/");
+    }
+  });
+
+  useEffect(() => {
+    // Responsiveness
+    window.addEventListener("resize", () => {
+      setWindowWidth(document.body.clientWidth);
     });
-
-    useEffect(() => {
-        // Responsiveness
-        window.addEventListener("resize", () => {
-            setWindowWidth(document.body.clientWidth);
-        });
-        window.addEventListener("resize", () => {
-            setWindowHeight(window.innerHeight);
-        });
-        return () => {
-            window.removeEventListener("resize", () => {
-                setWindowWidth(document.body.clientWidth);
-            });
-            window.removeEventListener("resize", () => {
-                setWindowHeight(window.innerHeight);
-            });
-        };
-    }, []);
-
-    // For image processing
-    const readFile = event => {
-        setFileB(URL.createObjectURL(event.target.files[0]));
-        setFileFB(event.target.files[0]);
+    window.addEventListener("resize", () => {
+      setWindowHeight(window.innerHeight);
+    });
+    return () => {
+      window.removeEventListener("resize", () => {
+        setWindowWidth(document.body.clientWidth);
+      });
+      window.removeEventListener("resize", () => {
+        setWindowHeight(window.innerHeight);
+      });
     };
-    const handleClick = () => {
-        upload.current.click();
-    };
+  }, []);
 
-    const upload = useRef();
-    //
+  // For image processing
+  const readFile = event => {
+    setFileB(URL.createObjectURL(event.target.files[0]));
+    setFileFB(event.target.files[0]);
+  };
+  const handleClick = () => {
+    upload.current.click();
+  };
 
-    const register = evt => {
-        evt.preventDefault();
+  const upload = useRef();
+  //
 
-        try {
-            if (email.length < 6) {
-                toast(
-                    <CustomToast title="Correo debe tener por lo menos 6 caracteres" />
-                );
-                return;
-            } else if (password !== confPass) {
-                toast(<CustomToast title="Contraseñas no coinciden" />);
-                return;
-            } else if (fileB === null) {
-                toast(<CustomToast title="Insertar Imagen" />);
-                return;
-            }
+  const register = evt => {
+    evt.preventDefault();
 
-            app.auth()
-                .createUserWithEmailAndPassword(email.trim(), password)
-                .then(() => {
-                    firebase.fillDB(firstName, lastName, secondLast, email);
-                    firebase.uploadImage(fileFB, email);
-                    firebase.resetPassword(email);
-                    setFileB(null);
-                    setFirstName("");
-                    setLastName("");
-                    setSecondLast("");
-                    setEmail("");
-                    setPassword("");
-                    setConfPass("");
-                    toast(<CustomToast title="¡Registro exitoso!" />);
-                })
-                .catch(error =>
-                    toast(<CustomToast title="No es un correo válido" />)
-                );
-        } catch (error) {
-            console.log(error.toString());
-        }
-    };
+    try {
+      if (email.length < 6) {
+        toast(
+          <CustomToast title="Correo debe tener por lo menos 6 caracteres" />
+        );
+        return;
+      } else if (password !== confPass) {
+        toast(<CustomToast title="Contraseñas no coinciden" />);
+        return;
+      } else if (fileB === null) {
+        toast(<CustomToast title="Insertar Imagen" />);
+        return;
+      }
 
-    return (
-        <div
-            style={{
-                width: windowWidth,
-                height: windowHeight,
-                overflow: "hidden",
-            }}
-        >
-            <Navigation />
+      app
+        .auth()
+        .createUserWithEmailAndPassword(email.trim(), password)
+        .then(() => {
+          firebase.fillDB(firstName, lastName, secondLast, email);
+          firebase.uploadImage(fileFB, email);
+          firebase.resetPassword(email);
+          setFileB(null);
+          setFirstName("");
+          setLastName("");
+          setSecondLast("");
+          setEmail("");
+          setPassword("");
+          setConfPass("");
+          toast(<CustomToast title="¡Registro exitoso!" />);
+        })
+        .catch(error =>
+          toast(
+            <CustomToast title="No es un correo válido o ya está registrado" />
+          )
+        );
+    } catch (error) {
+      console.log(error.toString());
+    }
+  };
 
-            <form className="formDiv" onSubmit={register}>
-                <div className="divRow">
-                    <img
-                        className="image"
-                        src={fileB !== null ? fileB : "image.jpg"}
-                        alt="profile_default"
-                        onClick={handleClick}
-                    />
-                </div>
-                <input
-                    id="upload"
-                    ref={upload}
-                    type="file"
-                    accept="image/*"
-                    onInput={readFile}
-                    onClick={event => {
-                        event.target.value = null;
-                    }}
-                    style={{ display: "none" }}
-                />
+  return (
+    <div
+      style={{
+        width: windowWidth,
+        height: windowHeight,
+        overflow: "hidden"
+      }}
+    >
+      <Navigation />
 
-                <div className="twoContainer">
-                    <div className="inputCol">
-                        <div className="textDiv">Primer Nombre:</div>
-                        <FormInput
-                            name="First Name"
-                            type="text"
-                            placeholder="Primer Nombre"
-                            className="inputSignUp"
-                            value={firstName}
-                            required
-                            onChange={evt => setFirstName(evt.target.value)}
-                        />
-                    </div>
-
-                    <div className="inputCol">
-                        <div className="textDiv">Primer Apellido:</div>
-                        <FormInput
-                            name="Last Name"
-                            type="text"
-                            placeholder="Primer Apellido"
-                            className="inputSignUp"
-                            value={lastName}
-                            required
-                            onChange={evt => setLastName(evt.target.value)}
-                        />
-                    </div>
-                </div>
-
-                <div className="twoContainer">
-                    <div className="inputCol">
-                        <div className="textDiv">Segundo Apellido:</div>
-                        <FormInput
-                            name="Second Last"
-                            type="text"
-                            placeholder="Segundo Apellido"
-                            className="inputSignUp"
-                            value={secondLast}
-                            required
-                            onChange={evt => setSecondLast(evt.target.value)}
-                        />
-                    </div>
-
-                    <div className="inputCol">
-                        <div className="textDiv">Correo Electrónico:</div>
-                        <FormInputE
-                            name="Email"
-                            type="text"
-                            placeholder="Correo Electrónico"
-                            className="inputSignUp"
-                            value={email}
-                            required
-                            onChange={evt => setEmail(evt.target.value)}
-                        />
-                    </div>
-                </div>
-
-                <div className="twoContainer">
-                    <div className="inputCol">
-                        <div className="textDiv">Contraseña:</div>
-                        <FormInput
-                            name="Pass"
-                            type="password"
-                            placeholder="******"
-                            className="inputSignUp"
-                            value={password}
-                            required
-                            onChange={evt => setPassword(evt.target.value)}
-                        />
-                    </div>
-
-                    <div className="inputCol">
-                        <div className="textDiv">Confirmar Contraseña:</div>
-                        <FormInput
-                            name="PassConf"
-                            type="password"
-                            placeholder="*******"
-                            className="inputSignUp"
-                            value={confPass}
-                            required
-                            onChange={evt => setConfPass(evt.target.value)}
-                        />
-                    </div>
-                </div>
-                <FormInput
-                    name=""
-                    type="submit"
-                    className="buttonSignUp"
-                    value="Registrarse"
-                    onClick={register}
-                />
-            </form>
+      <form className="formDiv" onSubmit={register}>
+        <div className="divRow">
+          <img
+            className="image"
+            src={fileB !== null ? fileB : "image.jpg"}
+            alt="profile_default"
+            onClick={handleClick}
+          />
         </div>
-    );
+        <input
+          id="upload"
+          ref={upload}
+          type="file"
+          accept="image/*"
+          onInput={readFile}
+          onClick={event => {
+            event.target.value = null;
+          }}
+          style={{ display: "none" }}
+        />
+
+        <div className="twoContainer">
+          <div className="inputCol">
+            <div className="textDiv">Primer Nombre:</div>
+            <FormInput
+              name="First Name"
+              type="text"
+              placeholder="Primer Nombre"
+              className="inputSignUp"
+              value={firstName}
+              required
+              onChange={evt => setFirstName(evt.target.value)}
+            />
+          </div>
+
+          <div className="inputCol">
+            <div className="textDiv">Primer Apellido:</div>
+            <FormInput
+              name="Last Name"
+              type="text"
+              placeholder="Primer Apellido"
+              className="inputSignUp"
+              value={lastName}
+              required
+              onChange={evt => setLastName(evt.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="twoContainer">
+          <div className="inputCol">
+            <div className="textDiv">Segundo Apellido:</div>
+            <FormInput
+              name="Second Last"
+              type="text"
+              placeholder="Segundo Apellido"
+              className="inputSignUp"
+              value={secondLast}
+              required
+              onChange={evt => setSecondLast(evt.target.value)}
+            />
+          </div>
+
+          <div className="inputCol">
+            <div className="textDiv">Correo Electrónico:</div>
+            <FormInputE
+              name="Email"
+              type="text"
+              placeholder="Correo Electrónico"
+              className="inputSignUp"
+              value={email}
+              required
+              onChange={evt => setEmail(evt.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="twoContainer">
+          <div className="inputCol">
+            <div className="textDiv">Contraseña:</div>
+            <FormInput
+              name="Pass"
+              type="password"
+              placeholder="******"
+              className="inputSignUp"
+              value={password}
+              required
+              onChange={evt => setPassword(evt.target.value)}
+            />
+          </div>
+
+          <div className="inputCol">
+            <div className="textDiv">Confirmar Contraseña:</div>
+            <FormInput
+              name="PassConf"
+              type="password"
+              placeholder="*******"
+              className="inputSignUp"
+              value={confPass}
+              required
+              onChange={evt => setConfPass(evt.target.value)}
+            />
+          </div>
+        </div>
+        <FormInput
+          name=""
+          type="submit"
+          className="buttonSignUp"
+          value="Registrarse"
+          onClick={register}
+        />
+      </form>
+    </div>
+  );
 }
 
 export default withRouter(SignUp);
