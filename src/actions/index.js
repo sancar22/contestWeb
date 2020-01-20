@@ -12,6 +12,13 @@ export const selectOnlineGuards = info => {
   };
 };
 
+export const helpBrigade = info => {
+  return {
+    type: "BRIGADE_HELPED",
+    payload: info
+  };
+};
+
 export const tempArray = info => {
   return {
     type: "TEMP_ARRAY",

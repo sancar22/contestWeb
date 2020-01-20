@@ -31,6 +31,7 @@ const brigadaReducer = (state = initState, action) => {
             };
           })
       };
+
     case "SELECT_ALL":
       return { ...state, allBrigades: action.payload };
     case "TEMP_ARRAY":

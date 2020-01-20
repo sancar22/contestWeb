@@ -7,6 +7,8 @@ import "./SignIn.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 import FormInput from "../form/Form";
+import CustomToast from "../custom-toast";
+import { toast } from "react-toastify";
 
 function SignIn(props) {
   const [email, setEmail] = useState("");
@@ -41,7 +43,9 @@ function SignIn(props) {
       props.history.replace("/home"); //  login es exitoso ir a /home
     } catch (e) {
       setLoading(false);
-      alert("Wrong email or password");
+      toast(
+        <CustomToast title="Correo o contraseña incorrectos o el correo no está registrado." />
+      );
     }
   };
 

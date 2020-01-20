@@ -11,12 +11,31 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import "./HomePage.css";
 import L from "leaflet";
 import CaseForm from "../caseForm/CaseForm";
+import firebase from "../../routes/Config";
+import { messaging } from "../../init-fcm";
 
 function HomePage(props) {
   const brigadistas = useSelector(state => state.brigada);
   const dispatch = useDispatch();
   const [windowWidth, setWindowWidth] = useState(null); //responsiveness
   const [windowHeight, setWindowHeight] = useState(null);
+
+  const permissionRequest = () => {
+    Notification.requestPermission().then(permission => {
+      if (permission === "granted") {
+        console.log("Notification permission granted.");
+        firebase.getPushToken();
+      } else {
+        console.log("Unable to get permission to notify.");
+      }
+    });
+  };
+
+  const refreshListener = () => {
+    app.messaging().onTokenRefresh(() => {
+      firebase.getPushToken();
+    });
+  };
 
   useEffect(() => {
     dispatch(selectMarker(brigadistas.brigadeListOnline));
@@ -30,6 +49,13 @@ function HomePage(props) {
     window.addEventListener("resize", () => {
       setWindowHeight(window.innerHeight);
     });
+    if (app.auth().currentUser) {
+      if (app.auth().currentUser.email === "admin@gmail.com") {
+        permissionRequest();
+        refreshListener();
+        firebase.foregroundNotificationList();
+      }
+    }
 
     return () => {
       window.removeEventListener("resize", () => {

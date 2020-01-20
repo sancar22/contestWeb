@@ -1,120 +1,146 @@
 .list {
-    bottom: -0.5vh;
-    display: flex;
-    flex-direction: column;
-    left: -1.8vw;
-    text-align: center;
-    background: #ececec;
-    border: 0px solid;
-    height: 25%;
-    border-radius: 7px 0px 0px 7px;
-    overflow: hidden;
-    overflow-y: scroll;
+  bottom: -0.5vh;
+  display: flex;
+  flex-direction: column;
+  left: -1.8vw;
+  text-align: center;
+  background: #ececec;
+  border: 0px solid;
+  height: 25%;
+  border-radius: 7px 0px 0px 7px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .listele {
-    border-style: solid;
-    border-width: 0px 0px 1px 0px;
-    border-color: #b8b8b8;
-    background: rgb(216, 216, 221);
-    font-family: "Courier New", Courier, monospace;
+  border-style: solid;
+  border-width: 0px 0px 1px 0px;
+  border-color: #b8b8b8;
+  background: rgb(216, 216, 221);
+  font-family: "Courier New", Courier, monospace;
 }
 .dropdown {
-    position: relative;
-    bottom: -5vh;
-    margin-left: 1vw;
+  position: relative;
+  bottom: -5vh;
+  margin-left: 1vw;
 }
 .bod {
-    position: relative;
-    background-color: rgb(255, 255, 255);
-    box-shadow: -10px 15px 30px black;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 30%;
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 .texto {
-    position: relative;
-    padding-left: 2vw;
-    font-family: "Courier New", Courier, monospace;
+  position: relative;
+  padding-left: 2vw;
+  font-family: "Courier New", Courier, monospace;
 }
 .but {
-    position: relative;
-    height: 5vh;
-    font-family: "Courier New", Courier, monospace;
-    font-size: 13px;
-    background-color: rgb(184, 184, 184);
-    margin-top: 0vh;
-    margin-left: 10vw;
-    margin-right: 10vw;
-    border-radius: 10px;
-    transition: 0.5s;
-    top: 15vh;
+  position: relative;
+  height: 5vh;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  background-color: rgb(184, 184, 184);
+  margin-top: 0vh;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  border-radius: 10px;
+  transition: 0.5s;
+  top: 12vh;
+  font-weight: bold;
 }
 
 .but:hover {
-    background-color: rgb(89, 206, 89);
+  background-color: rgb(89, 206, 89);
 }
 
 .inputtext {
-    position: relative;
-    width: 89%;
-    margin-left: 1.8vw;
-    margin-right: 1.8vw;
-    border-radius: 7px 0px 0px 7px;
-    height: 10vh;
-    margin-top: 0vh;
-    font-family: "Courier New", Courier, monospace;
-    resize: none;
-    overflow: hidden;
-    overflow-y: scroll;
-    background: #ececec;
-    top: 9vh;
+  position: relative;
+  width: 86%;
+  margin-left: 1.8vw;
+  margin-right: 1.8vw;
+  border-radius: 7px 0px 0px 7px;
+  height: 10vh;
+  margin-top: 0vh;
+  font-family: "Courier New", Courier, monospace;
+  resize: none;
+  overflow: hidden;
+  overflow-y: scroll;
+  background: #ececec;
+  top: 9vh;
 }
 ::placeholder {
-    color: black;
-    font-family: "Courier New", Courier, monospace;
-    opacity: 0.5;
+  color: black;
+  font-family: "Courier New", Courier, monospace;
+  opacity: 0.5;
 }
 
 .texti {
-    font-family: "Courier New", Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .div1 {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    height: 3vh;
-    width: 100%;
-    margin-top: 2vh;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 3vh;
+  width: 100%;
+  margin-top: 2vh;
 }
 
 .div2 {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .div3 {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    height: 6vh;
-    width: 100%;
-    margin-top: 0vh;
-    top: 5vh;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 0vh;
+  top: 5vh;
+}
+
+.allCaseContainer {
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  box-shadow: -10px 15px 30px black;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 30%;
+  overflow: auto;
+}
+.optionsCase {
+  width: 33.33%;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  height: 100%;
+}
+
+.optionsCase:focus {
+  outline: 0;
+}
+.optionsCase:active {
+  outline: 0;
+}
+.caseNav {
+  display: flex;
 }
 
 @media (max-width: 909px) {
-    .bod {
-        width: 40%;
-    }
+  .allCaseContainer {
+    width: 40%;
+  }
 }
 
 @media (max-width: 650px) {
-    .bod {
-        width: 80%;
-    }
+  .allCaseContainer {
+    width: 80%;
+  }
 }

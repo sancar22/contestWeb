@@ -19,15 +19,14 @@ import { css } from "@emotion/core";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { messaging } from "../../init-fcm";
-import CustomToast from "../custom-toast";
 
 toast.configure({
   autoClose: 8000,
   draggable: false
 });
+
 function App() {
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);
-
   const dispatch = useDispatch();
   const override = css`
     display: block;
@@ -35,19 +34,6 @@ function App() {
     border-color: red;
     margin-top: 40vh;
   `;
-
-  Notification.requestPermission().then(permission => {
-    if (permission === "granted") {
-      console.log("Notification permission granted.");
-      firebase.getPushToken();
-    } else {
-      console.log("Unable to get permission to notify.");
-    }
-  });
-
-  app.messaging().onTokenRefresh(() => {
-    firebase.getPushToken();
-  });
 
   function getDataOnlineUsers() {
     // Para obtener información de todos los usuarios online

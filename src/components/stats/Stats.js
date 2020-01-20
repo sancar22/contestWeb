@@ -1,6 +1,6 @@
 import "./Stats.css";
 import React, { useState, useEffect } from "react";
-import { selectMarker } from "../../actions/index";
+
 import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import app from "firebase/app";
@@ -10,6 +10,7 @@ import Navigation from "../navigation/Navigation";
 
 function Stats(props) {
   const allBrigadistas = useSelector(state => state.brigada.allBrigades);
+
   let orderedArray = allBrigadistas;
   const compare = (a, b) => {
     const elementA = a.acceptRatio;
@@ -25,7 +26,6 @@ function Stats(props) {
   };
   orderedArray.sort(compare);
 
-  console.log(orderedArray);
   let displayStats = orderedArray.map((item, index) => {
     return (
       <tr key={index}>
@@ -34,12 +34,12 @@ function Stats(props) {
         </td>
         <td>{item.nombre + " " + item.apellido}</td>
         <td>{item.accepted}</td>
+        <td>{item.rejected}</td>
         <td>{item.receivedNotif}</td>
         <td>{(item.acceptRatio * 100).toFixed(2)}</td>
       </tr>
     );
   });
-  const dispatch = useDispatch();
 
   app.auth().onAuthStateChanged(user => {
     // Para llevarlo a login window si no está conectado
@@ -49,18 +49,21 @@ function Stats(props) {
   });
 
   return (
-    <div>
+    <div style={{ overflow: "hidden", height: "100vh", width: "100vw" }}>
       <Navigation />
-      <table className="tableStats">
-        <tr>
-          <th>Imagen</th>
-          <th>Brigadista</th>
-          <th>Aceptados</th>
-          <th>Totales</th>
-          <th>Aceptados%</th>
-        </tr>
-        {displayStats}
-      </table>
+      <div style={{ overflow: "auto", width: "100%", height: "87%" }}>
+        <table className="tableStats">
+          <tr>
+            <th>Imagen</th>
+            <th>Brigadista</th>
+            <th>Aceptados</th>
+            <th>Rechazados</th>
+            <th>Totales</th>
+            <th>Aceptados%</th>
+          </tr>
+          {displayStats}
+        </table>
+      </div>
     </div>
   );
 }
