@@ -204,6 +204,7 @@ class Firebase {
                     camillaCheck: false,
                     apoyoCheck: false,
                     extintorCheck: false,
+                    formatTime: "",
                     descBrigadista: "",
                     tTranscurrido: 0,
                     closed: true,

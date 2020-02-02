@@ -105,33 +105,33 @@ function HomePage(props) {
     let Markers = brigadistas.brigadeListOnline.map((
         brigadista // Marcadores
     ) => (
-        <Marker
-            key={brigadista.UID}
-            position={[brigadista.Latitud, brigadista.Longitud]}
-            icon={messageIcon(brigadista)}
-            onclick={() => onMarkerClickHandler(brigadista)}
-            onMouseOver={e => {
-                e.target.openPopup();
-            }}
-            onMouseOut={e => {
-                e.target.closePopup();
-            }}
-        >
-            <Popup>
-                <div className="popupContainer">
-                    <img src={brigadista.imagen} height="50" width="50" />
-                    <br />
-                    <div>{brigadista.nombre + " " + brigadista.apellido}</div>
-                    <br />
-                    <div>Casos Aceptados: {brigadista.accepted}</div>
-                    <br />
-                    <div>Casos Rechazados: {brigadista.rejected}</div>
-                    <br />
-                    <div>Casos Recibidos: {brigadista.receivedNotif}</div>
-                </div>
-            </Popup>
-        </Marker>
-    ));
+            <Marker
+                key={brigadista.UID}
+                position={[brigadista.Latitud, brigadista.Longitud]}
+                icon={messageIcon(brigadista)}
+                onclick={() => onMarkerClickHandler(brigadista)}
+                onMouseOver={e => {
+                    e.target.openPopup();
+                }}
+                onMouseOut={e => {
+                    e.target.closePopup();
+                }}
+            >
+                <Popup>
+                    <div className="popupContainer">
+                        <img src={brigadista.imagen} height="50" width="50" />
+                        <br />
+                        <div>{brigadista.nombre + " " + brigadista.apellido}</div>
+                        <br />
+                        <div>Casos Aceptados: {brigadista.accepted}</div>
+                        <br />
+                        <div>Casos Rechazados: {brigadista.rejected}</div>
+                        <br />
+                        <div>Casos Recibidos: {brigadista.receivedNotif}</div>
+                    </div>
+                </Popup>
+            </Marker>
+        ));
 
     return (
         <div
@@ -141,7 +141,7 @@ function HomePage(props) {
             <Navigation />
             <div className="dive">
                 <CaseForm />
-                <Map className="map" center={[5.6348235, -73.530888]} zoom={18}>
+                <Map className="map" center={[11.018946, -74.850515]} zoom={18}>
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
