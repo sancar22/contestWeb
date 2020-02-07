@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import firebase from "../../routes/Config";
 import "firebase/auth";
 import "./Navigation.css";
+import DrawerToggleButton from "../sideDrawer/DrawerToggleButton";
 
 function Navigation(props) {
   const logout = () => {
@@ -17,7 +18,8 @@ function Navigation(props) {
       <section>
         <header>
           <div className="navBox">
-            <ul>
+            <DrawerToggleButton click={props.sideFunction} />
+            <ul className="extra">
               <li>
                 <Link to={ROUTES.HOME}>Home</Link>
               </li>

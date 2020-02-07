@@ -6,11 +6,25 @@ import "firebase/auth";
 import "firebase/firebase-database";
 import "./ClosedCases.css";
 import ClipLoader from "react-spinners/ClipLoader";
+import SideDrawer from "../sideDrawer/SideDrawer";
+import Backdrop from "../backdrop/Backdrop";
+import TableC from "../tableC/TableC";
 import { css } from "@emotion/core";
+import FilterC from "../filterC/filterC";
 function ClosedCases(props) {
   const allCases = useSelector(state => state.casos);
   const counter = useRef(0);
   const [loading, setLoading] = useState(true);
+  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+  const [filterName, setFilterName] = useState("");
+  const [showName, setShowName] = useState(false);
+  const [filterPlace, setFilterPlace] = useState("");
+  const [showPlace, setShowPlace] = useState(false);
+  const [filterCategory, setFilterCategory] = useState("");
+  const [showCategory, setShowCategory] = useState(false);
+  const drawerToggleClickHandler = () => {
+    setSideDrawerOpen(!sideDrawerOpen);
+  };
   const override = loading
     ? css`
         display: block;
@@ -27,18 +41,110 @@ function ClosedCases(props) {
       props.history.push("/");
     }
   });
-  const photoLoader = () => {
+  const photoLoader = length => {
     counter.current += 1;
-    if (
-      counter.current >=
-      allCases.filter(data => data.active === false).length * 2
-    ) {
+
+    if (counter.current >= length * 2) {
       setLoading(false);
     }
   };
+
+  const filterNow = (field, option) => {
+    if (option.label === "Nombre") {
+      setShowPlace(false);
+      setShowCategory(false);
+      setShowName(true);
+      setFilterName(
+        allCases
+          .filter(
+            data =>
+              data.active === false &&
+              data.nombre + " " + data.apellido === field.label
+          )
+          .map((item, index) => {
+            const length = allCases.filter(
+              data =>
+                data.active === false &&
+                data.nombre + " " + data.apellido === field.label
+            ).length;
+            return (
+              <TableC
+                index={index}
+                photoLoader={photoLoader}
+                item={item}
+                length={length}
+              />
+            );
+          })
+      );
+    } else if (option.label === "Lugar") {
+      setShowPlace(true);
+      setShowCategory(false);
+      setShowName(false);
+      setFilterPlace(
+        allCases
+          .filter(data => data.active === false && data.lugar === field.label)
+          .map((item, index) => {
+            const length = allCases.filter(
+              data => data.active === false && data.lugar === field.label
+            ).length;
+            return (
+              <TableC
+                index={index}
+                photoLoader={photoLoader}
+                item={item}
+                length={length}
+              />
+            );
+          })
+      );
+    } else if (option.label === "Categoría") {
+      setShowPlace(false); // Acuerda de agregar nuevas cosas y cambiar estados
+      setShowCategory(true);
+      setShowName(false);
+      setFilterCategory(
+        allCases
+          .filter(
+            data => data.active === false && data.categoria === field.label
+          )
+          .map((item, index) => {
+            const length = allCases.filter(
+              data => data.active === false && data.categoria === field.label
+            ).length;
+            return (
+              <TableC
+                index={index}
+                photoLoader={photoLoader}
+                item={item}
+                length={length}
+              />
+            );
+          })
+      );
+    }
+  };
+
+  let showArray =
+    allCases.length > 0 &&
+    allCases
+      .filter(data => data.active === false)
+      .map((item, index) => {
+        const length = allCases.filter(data => data.active === false).length;
+
+        return (
+          <TableC
+            index={index}
+            photoLoader={photoLoader}
+            item={item}
+            length={length}
+          />
+        );
+      });
   return (
     <div style={{ overflow: "hidden", height: "100vh", width: "100vw" }}>
-      <Navigation />
+      <Navigation sideFunction={drawerToggleClickHandler} />
+      {sideDrawerOpen && <Backdrop click={drawerToggleClickHandler} />}
+      <SideDrawer shown={sideDrawerOpen} click={drawerToggleClickHandler} />
       <ClipLoader
         css={override}
         sizeUnit={"px"}
@@ -46,6 +152,7 @@ function ClosedCases(props) {
         color={"#123abc"}
         loading={loading}
       />
+
       <div
         style={{
           overflow: "auto",
@@ -54,6 +161,7 @@ function ClosedCases(props) {
           display: loading ? "none" : "block"
         }}
       >
+        <FilterC filterNow={filterNow} />
         <table className="tableClosed">
           <tr>
             <th>Brigadista</th>
@@ -64,87 +172,13 @@ function ClosedCases(props) {
             <th>Proceder</th>
             <th>Fotos</th>
           </tr>
-          {allCases.length > 0 &&
-            allCases
-              .filter(data => data.active === false)
-              .map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{item.nombre + " " + item.apellido}</td>
-
-                    <td>
-                      <div
-                        style={{
-                          flexDirection: "column"
-                        }}
-                      >
-                        <div>Lugar: {item.lugar}</div>
-                        <div>Código: {item.codigo}</div>
-                        <div>Categoría: {item.categoria}</div>
-                        <div>Comienzo: {item.inicioFecha}</div>
-                        <div>Fin: {item.finalFecha}</div>
-                        <div>Tiempo Total: {item.formatTime}</div>
-                      </div>
-                    </td>
-                    <td>
-                      <div>{item.descripcion}</div>
-                    </td>
-                    <td>
-                      <div
-                        style={{
-                          flexDirection: "column",
-                          display: "flex"
-                        }}
-                      >
-                        {item.bombero && <div>Bombero</div>}
-                        {item.ambulancia && <div>Ambulancia</div>}
-                        {item.camilla && <div>Camilla</div>}
-                        {item.extintor && <div>Extintor</div>}
-                        {item.policia && <div>Policía</div>}
-                        {item.apoyo && <div>Apoyo</div>}
-                      </div>
-                    </td>
-                    <td>
-                      <div>No disponible por el momento.</div>
-                    </td>
-                    <td>{item.descBrigadista}</td>
-                    <td>
-                      <a
-                        href={item.image1 !== "image1" && item.image1}
-                        target="none"
-                      >
-                        <img
-                          onLoad={photoLoader}
-                          src={
-                            item.image1 === "image1"
-                              ? require("../../assets/imageicon.png")
-                              : item.image1
-                          }
-                          height="100"
-                          width="100"
-                          style={{ padding: "10px" }}
-                        />
-                      </a>
-                      <a
-                        href={item.image2 !== "image2" && item.image2}
-                        target="_blank"
-                      >
-                        <img
-                          onLoad={photoLoader}
-                          src={
-                            item.image2 === "image2"
-                              ? require("../../assets/imageicon.png")
-                              : item.image2
-                          }
-                          height="100"
-                          width="100"
-                          style={{ padding: "10px" }}
-                        />
-                      </a>
-                    </td>
-                  </tr>
-                );
-              })}
+          {allCases.length > 0 && showName === true
+            ? filterName
+            : showCategory === true
+            ? filterCategory
+            : showPlace === true
+            ? filterPlace
+            : showArray}
         </table>
       </div>
     </div>

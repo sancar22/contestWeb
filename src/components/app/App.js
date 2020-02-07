@@ -25,6 +25,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Navigation from "../navigation/Navigation";
 import { messaging } from "../../init-fcm";
 
 toast.configure({
@@ -35,6 +36,7 @@ toast.configure({
 function App() {
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);
   const dispatch = useDispatch();
+
   const override = css`
     display: block;
     margin: 0 auto;

@@ -1,69 +1,110 @@
 .image {
-    border-radius: 50%;
-    width: 7vw;
-    height: 15vh;
-    margin-left: 26.5%;
+  border-radius: 50%;
+  width: 10vw;
+  height: 100%;
 }
 
 .formDiv {
-    height: 86vh;
-    display: flex;
-    flex-direction: column;
-    width: 60vw;
-    margin-left: 20vw;
+  height: 86%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
 
 .divRow {
-    display: flex;
-    height: 15vh;
-    width: 100vw;
-    position: relative;
-    padding: 2vh;
+  display: flex;
+  height: 15vh;
+  width: 100vw;
+  position: relative;
+  padding: 2vh;
+  justify-content: center;
 }
 
 .inputCol {
-    position: relative;
-    flex-direction: column;
-    margin-right: -5vw;
-    margin-left: 11.2vw;
+  position: relative;
+  flex-direction: column;
+  margin-right: 5vw;
+  margin-left: 5vw;
 }
 
 .twoContainer {
-    display: flex;
-    width: 100vw;
-    position: relative;
-
-    padding: 2vh;
+  display: flex;
+  width: 100vw;
+  position: relative;
+  justify-content: center;
+  height: 10vh;
+  padding: 2vh;
 }
 
 .textDiv {
-    padding: 0 0 0.2vh 0;
-    font-size: 1.2vw;
+  padding: 0 0 0.2vh 0;
+  font-size: 0.7em;
+  font-weight: bold;
 }
 
 .inputSignUp {
-    border-radius: 10px;
-    height: 4vh;
-    width: 15vw;
+  border-radius: 10px;
+  height: 4vh;
+  width: 15vw;
 }
 .inputSignUp::placeholder {
-    font-size: 1.2vw;
+  font-size: 0.9em;
+  font-weight: bold;
 }
 
 .inputSignUp:focus {
-    outline: none;
+  outline: none;
 }
 
 .buttonSignUp {
-    width: 10vw;
-    border-radius: 10px;
-    margin-left: 25vw;
-    margin-top: 5vh;
-    height: 5vh;
-    font-size: 1vw;
-    font-weight: bold;
-    transition: 0.8s;
+  width: 10vw;
+  border-radius: 10px;
+
+  margin-top: 5vh;
+  height: 5vh;
+  font-size: 0.7em;
+  font-weight: bold;
+  transition: 0.8s;
 }
 .buttonSignUp:hover {
-    background-color: green;
+  background-color: green;
+}
+
+.image:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 769px) {
+  .inputSignUp {
+    width: 25vw;
+  }
+  .buttonSignUp {
+    width: 14vw;
+  }
+  .image {
+    width: 20vw;
+    height: 100%;
+  }
+  .divRow {
+    height: 23vh;
+  }
+}
+
+@media (max-width: 500px) {
+  .inputSignUp {
+    width: 40vw;
+  }
+  .buttonSignUp {
+    width: 22vw;
+  }
+  .divRow {
+    height: 23vh;
+  }
+  .image {
+    width: 20vw;
+    height: 100%;
+  }
 }

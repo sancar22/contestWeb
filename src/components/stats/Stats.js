@@ -7,11 +7,17 @@ import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-database";
 import Navigation from "../navigation/Navigation";
+import SideDrawer from "../sideDrawer/SideDrawer";
+import Backdrop from "../backdrop/Backdrop";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 function Stats(props) {
   const allBrigadistas = useSelector(state => state.brigada.allBrigades);
   const [loading, setLoading] = useState(true);
+  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+  const drawerToggleClickHandler = () => {
+    setSideDrawerOpen(!sideDrawerOpen);
+  };
   const counter = useRef(0);
   const override = loading
     ? css`
@@ -69,7 +75,9 @@ function Stats(props) {
 
   return (
     <div style={{ overflow: "hidden", height: "100vh", width: "100vw" }}>
-      <Navigation />
+      <Navigation sideFunction={drawerToggleClickHandler} />
+      {sideDrawerOpen && <Backdrop click={drawerToggleClickHandler} />}
+      <SideDrawer shown={sideDrawerOpen} click={drawerToggleClickHandler} />
       <ClipLoader
         css={override}
         sizeUnit={"px"}

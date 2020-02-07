@@ -1,80 +1,92 @@
 .bodyy {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: row;
-    height: 13%;
-    width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: row;
+  height: 13%;
+  width: 100%;
 }
 
 section {
-    position: relative;
-    width: 100vw;
-    height: 13vh;
-    background-position: center center;
+  position: relative;
+  width: 100vw;
+  height: 13vh;
+  background-position: center center;
 }
 
 header {
-    padding: 0 5vw;
-    margin: 0px;
-    width: 100vw;
-    height: 13vh;
-    box-sizing: border-box;
-    background: rgba(248, 245, 245, 0.8);
+  padding: 0 5vw;
+  margin: 0px;
+  width: 100vw;
+  height: 13vh;
+  box-sizing: border-box;
+  background: rgba(248, 245, 245, 0.8);
 
-    transition: 0.5s;
+  transition: 0.5s;
 }
 
 ul {
-    position: relative;
-    margin-left: 3.5vw;
-    margin-top: 0vh;
-    padding: 0;
-    display: flex;
-    float: left;
-    transition: 0.5s;
+  position: relative;
+  margin-left: 3.5vw;
+  margin-top: 0vh;
+  padding: 0;
+  display: flex;
+  float: left;
+  transition: 0.5s;
 }
 
 ul li {
-    list-style: none;
+  list-style: none;
 }
 
 ul li a {
-    position: relative;
-    display: block;
-    padding: 1.8vh 2.2vw;
-    margin: 3.2vh 0;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #262626;
-    font-weight: bold;
-    transition: 0.5s;
+  position: relative;
+  display: block;
+  padding: 1.8vh 2.2vw;
+  margin: 3.2vh 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #262626;
+  font-weight: bold;
+  transition: 0.5s;
 }
 ul li a:hover {
-    background: #b22222;
-    color: #fff;
+  background: #b22222;
+  color: #fff;
 }
 
 .logout {
-    height: 7vh;
-    width: 3.5vw;
+  height: 7vh;
+  width: 3.5vw;
 
-    padding: 3vh 0vw;
-    margin-left: 90vw;
-    display: block;
-    flex-direction: row;
-    -webkit-transition: all 0.5s ease-out;
-    -moz-transition: all 0.5s ease-out;
-    -ms-transition: all 0.5s ease-out;
-    -o-transition: all 0.5s ease-out;
-    transition: all 0.5s ease-out;
+  padding: 3vh 0vw;
+  margin-left: 87vw;
+  display: block;
+  flex-direction: row;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -ms-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
 }
 
 .logout:hover {
-    -webkit-transform: scale(1.1);
-    -moz-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    -o-transform: scale(1.1);
-    transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+@media (max-width: 769px) {
+  .logout {
+    display: none;
+  }
+  .extra {
+    display: none;
+  }
+  .navBox {
+    display: flex;
+  }
 }

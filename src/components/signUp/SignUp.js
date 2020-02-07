@@ -8,6 +8,8 @@ import FormInput from "../form/Form";
 import firebase from "../../routes/Config";
 import FormInputE from "../form/FormE";
 import { toast } from "react-toastify";
+import SideDrawer from "../sideDrawer/SideDrawer";
+import Backdrop from "../backdrop/Backdrop";
 
 import CustomToast from "../custom-toast";
 
@@ -20,6 +22,10 @@ function SignUp(props) {
   const [password, setPassword] = useState("");
   const [confPass, setConfPass] = useState("");
   const [fileFB, setFileFB] = useState(null);
+  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+  const drawerToggleClickHandler = () => {
+    setSideDrawerOpen(!sideDrawerOpen);
+  };
 
   const [windowWidth, setWindowWidth] = useState(null);
   const [windowHeight, setWindowHeight] = useState(null);
@@ -111,7 +117,9 @@ function SignUp(props) {
         overflow: "hidden"
       }}
     >
-      <Navigation />
+      <Navigation sideFunction={drawerToggleClickHandler} />
+      {sideDrawerOpen && <Backdrop click={drawerToggleClickHandler} />}
+      <SideDrawer shown={sideDrawerOpen} click={drawerToggleClickHandler} />
 
       <form className="formDiv" onSubmit={register}>
         <div className="divRow">
