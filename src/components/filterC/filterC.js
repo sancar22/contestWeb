@@ -5,11 +5,17 @@ import "react-select/dist/react-select.css";
 import "react-virtualized/styles.css";
 import "react-virtualized-select/styles.css";
 import "./filterC.css";
-import { options } from "./Options";
-import { optionsPlace, optionsCategory } from "../caseForm/Options";
+import { options, bothCategories } from "./Options";
+import { optionsPlace } from "../caseForm/Options";
 import { useSelector, useDispatch } from "react-redux";
-
-const FilterC = ({ filterNow, ...props }) => {
+import Calendar from "react-calendar";
+const FilterC = ({
+  filterNow,
+  dateOutput,
+  handleCalendarHeight,
+  secondHandler,
+  ...props
+}) => {
   const filterOptions = createFilterOptions({ options });
   const brigadistas = useSelector(state => state.brigada);
   const [name, setName] = useState("");
@@ -23,6 +29,33 @@ const FilterC = ({ filterNow, ...props }) => {
     };
   });
 
+  const calendarHandle = val => {
+    if (val !== null) {
+      setOption(val);
+
+      if (val.label === "Fecha") {
+        handleCalendarHeight();
+      } else {
+        secondHandler();
+      }
+    }
+  };
+
+  const handleFilter = () => {
+    if (option) {
+      filterNow(
+        option.label === "Nombre"
+          ? name
+          : option.label === "Fecha"
+          ? option
+          : option.label === "Lugar"
+          ? place
+          : option.label === "Categoría" && category,
+        option
+      );
+    }
+  };
+
   return (
     <div style={{ display: "flex", height: "15vh" }}>
       <div className="columnFilter">
@@ -35,7 +68,7 @@ const FilterC = ({ filterNow, ...props }) => {
             value={option}
             options={options}
             filterOptions={filterOptions}
-            onChange={val => setOption(val)}
+            onChange={val => calendarHandle(val)}
           />
         </div>
       </div>
@@ -53,47 +86,45 @@ const FilterC = ({ filterNow, ...props }) => {
               : "Categoría:"}
           </div>
           <div className="virtualizedBox">
-            <VirtualizedSelect
-              name="opcionesNombre"
-              value={
-                option.label === "Nombre"
-                  ? name
-                  : option.label === "Lugar"
-                  ? place
-                  : option.label === "Categoría" && category
-              }
-              options={
-                option.label === "Nombre"
-                  ? nameFilter
-                  : option.label === "Lugar"
-                  ? optionsPlace
-                  : option.label === "Categoría" && optionsCategory
-              }
-              onChange={val =>
-                option.label === "Nombre"
-                  ? setName(val)
-                  : option.label === "Lugar"
-                  ? setPlace(val)
-                  : option.label === "Categoría" && setCategory(val)
-              }
-            />
+            {option.label !== "Fecha" && (
+              <VirtualizedSelect
+                name="opcionesNombre"
+                value={
+                  option.label === "Nombre"
+                    ? name
+                    : option.label === "Lugar"
+                    ? place
+                    : option.label === "Categoría" && category
+                }
+                options={
+                  option.label === "Nombre"
+                    ? nameFilter
+                    : option.label === "Lugar"
+                    ? optionsPlace
+                    : option.label === "Categoría" && bothCategories
+                }
+                onChange={val =>
+                  option.label === "Nombre"
+                    ? setName(val)
+                    : option.label === "Lugar"
+                    ? setPlace(val)
+                    : option.label === "Categoría" && setCategory(val)
+                }
+              />
+            )}
+
+            {option.label === "Fecha" && (
+              <div style={{ display: "flex" }}>
+                <Calendar selectRange onChange={dateOutput} />
+              </div>
+            )}
           </div>
         </div>
       )}
 
       <button
         className="butClass"
-        onClick={() =>
-          option &&
-          filterNow(
-            option.label === "Nombre"
-              ? name
-              : option.label === "Lugar"
-              ? place
-              : option.label === "Categoría" && category,
-            option
-          )
-        }
+        onClick={() => handleFilter()}
         style={{ height: "7vh" }}
       >
         Filtrar

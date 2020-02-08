@@ -188,6 +188,7 @@ class Firebase {
                     categoria: fillCase.categoria.label,
                     descripcion: fillCase.descAdicional,
                     inicioFecha: dform,
+                    celular: brigade.celular,
                     finalFecha: "",
                     tInicial: 0,
                     tFinal: 0,
@@ -372,7 +373,7 @@ class Firebase {
             );
     }
 
-    fillDB(firstN, lastN, lastN2, email) {
+    fillDB(firstN, lastN, lastN2, email, celular) {
         app.database()
             .ref("Users/" + email.split(".")[0])
             .update({
@@ -389,6 +390,7 @@ class Firebase {
                 notif: false,
                 ocupado: false,
                 expired: false,
+                celular: celular,
                 Longitud: -74.851163,
                 acceptRatio: 0
             });

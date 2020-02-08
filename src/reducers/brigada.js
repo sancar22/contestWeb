@@ -4,7 +4,7 @@ const initState = {
     tempArray: [],
     buttonClick: null,
     allBrigades: [],
-    activeCases: [],
+    activeCases: []
 };
 
 const brigadaReducer = (state = initState, action) => {
@@ -12,7 +12,7 @@ const brigadaReducer = (state = initState, action) => {
         case "SELECT_ONLINE": // Brigadistas online
             return {
                 ...state,
-                brigadeListOnline: action.payload,
+                brigadeListOnline: action.payload
             };
         case "SELECT_GUARDS": // Marcadores
             return {
@@ -29,8 +29,9 @@ const brigadaReducer = (state = initState, action) => {
                             receivedNotif: brigade.receivedNotif,
                             nombre: brigade.nombre,
                             apellido: brigade.apellido,
+                            celular: brigade.celular
                         };
-                    }),
+                    })
             };
 
         case "SELECT_ALL":

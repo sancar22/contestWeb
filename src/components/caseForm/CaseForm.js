@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import createFilterOptions from "react-select-fast-filter-options";
 import firebase from "../../routes/Config";
-import { options, optionsPlace, optionsCod, optionsCategory } from "./Options";
+import {
+    options,
+    optionsPlace,
+    optionsCod,
+    optionsCategory1,
+    optionsCategory2
+} from "./Options";
 import {
     fillPlace,
     fillCode,
@@ -172,7 +178,8 @@ function CaseForm() {
                     options={options}
                     optionsPlace={optionsPlace}
                     optionsCod={optionsCod}
-                    optionsCategory={optionsCategory}
+                    optionsCategory1={optionsCategory1}
+                    optionsCategory2={optionsCategory2}
                     fillCase={fillCase}
                     filterOptions1={filterOptions1}
                     checkFunctionCase={checkFunctionCase}

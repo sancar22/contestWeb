@@ -2,192 +2,202 @@ import React, { useEffect, useState } from "react";
 import "./CaseForm.css";
 
 function ActiveCaseBlock({
-  handleButtonClickCam,
-  handleButtonClickExt,
-  handleButtonClickPol,
-  handleButtonClickAmb,
-  handleButtonClickApoyo,
-  handleButtonClickBom,
-  handleRedButton,
-  caso,
-  ...props
+    handleButtonClickCam,
+    handleButtonClickExt,
+    handleButtonClickPol,
+    handleButtonClickAmb,
+    handleButtonClickApoyo,
+    handleButtonClickBom,
+    handleRedButton,
+    caso,
+    ...props
 }) {
-  const [timer, setTimer] = useState(0);
-  let toHHMMSS = secs => {
-    let sec_num = parseInt(secs, 10);
-    let hours = Math.floor(sec_num / 3600);
-    let minutes = Math.floor(sec_num / 60) % 60;
-    let seconds = sec_num % 60;
+    const [timer, setTimer] = useState(0);
+    let toHHMMSS = secs => {
+        let sec_num = parseInt(secs, 10);
+        let hours = Math.floor(sec_num / 3600);
+        let minutes = Math.floor(sec_num / 60) % 60;
+        let seconds = sec_num % 60;
 
-    return [hours, minutes, seconds]
-      .map(v => (v < 10 ? "0" + v : v))
-      .filter((v, i) => v !== "00" || i > 0)
-      .join(":");
-  };
-
-  useEffect(() => {
-    let b = caso.date;
-
-    const timer = setInterval(() => {
-      if (!caso.active) {
-        clearInterval(timer);
-        setTimer(Math.round((caso.calcFin - b) / 1000)); // it stays static when case is closed
-      } else {
-        let a = new Date();
-
-        setTimer(Math.round((a - b) / 1000));
-      }
-    }, 1000);
-    return () => {
-      clearInterval(timer);
+        return [hours, minutes, seconds]
+            .map(v => (v < 10 ? "0" + v : v))
+            .filter((v, i) => v !== "00" || i > 0)
+            .join(":");
     };
-  }, [caso.active]);
-  return (
-    <div className="activeCaseLoop">
-      <a
-        onClick={() => handleRedButton(caso)}
-        className="close-icon"
-        style={{ display: caso.active && "none" }}
-      ></a>
-      <div style={{ textAlign: "center" }} className="texti">
-        {caso.inicioFecha}
-      </div>
-      <br />
-      <div className="texti">Nombre: {caso.nombre + " " + caso.apellido}</div>
-      <div className="texti">Lugar: {caso.lugar}</div>
 
-      <div className="texti">Código: {caso.codigo}</div>
-      <div className="texti">Categoría: {caso.categoria}</div>
-      <div className="texti">Tiempo activo: {toHHMMSS(timer)}</div>
+    useEffect(() => {
+        let b = caso.date;
 
-      <br />
-      <div className="requests">
-        <div style={{ textAlign: "center" }} className="texti">
-          Apoyos solicitados
-        </div>
-        <div className="requestsContainer">
-          <div className="objects">
-            <div
-              className="texti"
-              style={{ width: "100%", textAlign: "center" }}
-            >
-              Objetos
+        const timer = setInterval(() => {
+            if (!caso.active) {
+                clearInterval(timer);
+                setTimer(Math.round((caso.calcFin - b) / 1000)); // it stays static when case is closed
+            } else {
+                let a = new Date();
+
+                setTimer(Math.round((a - b) / 1000));
+            }
+        }, 1000);
+        return () => {
+            clearInterval(timer);
+        };
+    }, [caso.active]);
+    return (
+        <div className="activeCaseLoop">
+            <a
+                onClick={() => handleRedButton(caso)}
+                className="close-icon"
+                style={{ display: caso.active && "none" }}
+            ></a>
+            <div style={{ textAlign: "center" }} className="texti">
+                {caso.inicioFecha}
             </div>
-            {caso.camilla && (
-              <button
-                id="camilla"
-                onClick={() => handleButtonClickCam(caso)}
-                disabled={caso.camillaCheck && true}
-                style={{
-                  backgroundColor: caso.camillaCheck && "green"
-                }}
-                className="buttonObj"
-              >
-                {caso.camillaCheck ? (
-                  <strike className="texti">Camilla</strike>
-                ) : (
-                  <div className="texti">Camilla</div>
-                )}
-              </button>
-            )}
-            {caso.bombero && (
-              <button
-                id="bombero"
-                onClick={() => handleButtonClickBom(caso)}
-                disabled={caso.bomberoCheck && true}
-                style={{
-                  backgroundColor: caso.bomberoCheck && "green"
-                }}
-                className="buttonObj"
-              >
-                {caso.bomberoCheck ? (
-                  <strike className="texti">Bombero</strike>
-                ) : (
-                  <div className="texti">Bombero</div>
-                )}
-              </button>
-            )}
-            {caso.policia && (
-              <button
-                id="policia"
-                onClick={() => handleButtonClickPol(caso)}
-                disabled={caso.policiaCheck && true}
-                style={{
-                  backgroundColor: caso.policiaCheck && "green"
-                }}
-                className="buttonObj"
-              >
-                {caso.policiaCheck ? (
-                  <strike className="texti">Policía</strike>
-                ) : (
-                  <div className="texti">Policía</div>
-                )}
-              </button>
-            )}
-            {caso.apoyo && (
-              <button
-                id="apoyo"
-                onClick={() => handleButtonClickApoyo(caso)}
-                disabled={caso.apoyoCheck && true}
-                style={{
-                  backgroundColor: caso.apoyoCheck && "green"
-                }}
-                className="buttonObj"
-              >
-                {caso.apoyoCheck ? (
-                  <strike className="texti">Apoyo</strike>
-                ) : (
-                  <div className="texti">Apoyo</div>
-                )}
-              </button>
-            )}
-            {caso.ambulancia && (
-              <button
-                id="ambulancia"
-                onClick={() => handleButtonClickAmb(caso)}
-                disabled={caso.ambulanciaCheck && true}
-                style={{
-                  backgroundColor: caso.ambulanciaCheck && "green"
-                }}
-                className="buttonObj"
-              >
-                {caso.ambulanciaCheck ? (
-                  <strike className="texti">Ambulancia</strike>
-                ) : (
-                  <div className="texti">Ambulancia</div>
-                )}
-              </button>
-            )}
-            {caso.extintor && (
-              <button
-                id="extintor"
-                onClick={() => handleButtonClickExt(caso)}
-                disabled={caso.extintorCheck && true}
-                style={{
-                  backgroundColor: caso.extintorCheck && "green"
-                }}
-                className="buttonObj"
-              >
-                {caso.extintorCheck ? (
-                  <strike className="texti">Extintor</strike>
-                ) : (
-                  <div className="texti">Extintor</div>
-                )}
-              </button>
-            )}
-          </div>
-          <div className="listApoyo">
-            <div
-              className="texti"
-              style={{ width: "100%", textAlign: "center" }}
-            >
-              Brigadistas
+            <br />
+            <div className="texti">
+                Nombre: {caso.nombre + " " + caso.apellido}
             </div>
-          </div>
+            <div className="texti">Celular: {caso.celular}</div>
+            <div className="texti">Lugar: {caso.lugar}</div>
+
+            <div className="texti">Código: {caso.codigo}</div>
+            <div className="texti">Categoría: {caso.categoria}</div>
+            <div className="texti">Tiempo activo: {toHHMMSS(timer)}</div>
+
+            <br />
+            <div className="requests">
+                <div style={{ textAlign: "center" }} className="texti">
+                    Apoyos solicitados
+                </div>
+                <div className="requestsContainer">
+                    <div className="objects">
+                        <div
+                            className="texti"
+                            style={{ width: "100%", textAlign: "center" }}
+                        >
+                            Objetos
+                        </div>
+                        {caso.camilla && (
+                            <button
+                                id="camilla"
+                                onClick={() => handleButtonClickCam(caso)}
+                                disabled={caso.camillaCheck && true}
+                                style={{
+                                    backgroundColor:
+                                        caso.camillaCheck && "green"
+                                }}
+                                className="buttonObj"
+                            >
+                                {caso.camillaCheck ? (
+                                    <strike className="texti">Camilla</strike>
+                                ) : (
+                                    <div className="texti">Camilla</div>
+                                )}
+                            </button>
+                        )}
+                        {caso.bombero && (
+                            <button
+                                id="bombero"
+                                onClick={() => handleButtonClickBom(caso)}
+                                disabled={caso.bomberoCheck && true}
+                                style={{
+                                    backgroundColor:
+                                        caso.bomberoCheck && "green"
+                                }}
+                                className="buttonObj"
+                            >
+                                {caso.bomberoCheck ? (
+                                    <strike className="texti">Bombero</strike>
+                                ) : (
+                                    <div className="texti">Bombero</div>
+                                )}
+                            </button>
+                        )}
+                        {caso.policia && (
+                            <button
+                                id="policia"
+                                onClick={() => handleButtonClickPol(caso)}
+                                disabled={caso.policiaCheck && true}
+                                style={{
+                                    backgroundColor:
+                                        caso.policiaCheck && "green"
+                                }}
+                                className="buttonObj"
+                            >
+                                {caso.policiaCheck ? (
+                                    <strike className="texti">Policía</strike>
+                                ) : (
+                                    <div className="texti">Policía</div>
+                                )}
+                            </button>
+                        )}
+                        {caso.apoyo && (
+                            <button
+                                id="apoyo"
+                                onClick={() => handleButtonClickApoyo(caso)}
+                                disabled={caso.apoyoCheck && true}
+                                style={{
+                                    backgroundColor: caso.apoyoCheck && "green"
+                                }}
+                                className="buttonObj"
+                            >
+                                {caso.apoyoCheck ? (
+                                    <strike className="texti">Apoyo</strike>
+                                ) : (
+                                    <div className="texti">Apoyo</div>
+                                )}
+                            </button>
+                        )}
+                        {caso.ambulancia && (
+                            <button
+                                id="ambulancia"
+                                onClick={() => handleButtonClickAmb(caso)}
+                                disabled={caso.ambulanciaCheck && true}
+                                style={{
+                                    backgroundColor:
+                                        caso.ambulanciaCheck && "green"
+                                }}
+                                className="buttonObj"
+                            >
+                                {caso.ambulanciaCheck ? (
+                                    <strike className="texti">
+                                        Ambulancia
+                                    </strike>
+                                ) : (
+                                    <div className="texti">Ambulancia</div>
+                                )}
+                            </button>
+                        )}
+                        {caso.extintor && (
+                            <button
+                                id="extintor"
+                                onClick={() => handleButtonClickExt(caso)}
+                                disabled={caso.extintorCheck && true}
+                                style={{
+                                    backgroundColor:
+                                        caso.extintorCheck && "green"
+                                }}
+                                className="buttonObj"
+                            >
+                                {caso.extintorCheck ? (
+                                    <strike className="texti">Extintor</strike>
+                                ) : (
+                                    <div className="texti">Extintor</div>
+                                )}
+                            </button>
+                        )}
+                    </div>
+                    <div className="listApoyo">
+                        <div
+                            className="texti"
+                            style={{ width: "100%", textAlign: "center" }}
+                        >
+                            Brigadistas
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default ActiveCaseBlock;
