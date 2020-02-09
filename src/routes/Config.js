@@ -67,6 +67,20 @@ class Firebase {
                     ? require("../assets/bombero.png")
                     : body.search("apoyo") !== -1
                     ? require("../assets/apoyo.png")
+                    : body.search("Defensa") !== -1
+                    ? require("../assets/DefensaCivil.png")
+                    : body.search("Cruz") !== -1
+                    ? require("../assets/CruzRoja.png")
+                    : body.search("Médico") !== -1
+                    ? require("../assets/CentroMédico.png")
+                    : body.search("ruedas") !== -1
+                    ? require("../assets/silladeruedas.png")
+                    : body.search("DEA") !== -1
+                    ? require("../assets/DEA.png")
+                    : body.search("botiquín") !== -1
+                    ? require("../assets/botiquín.png")
+                    : body.search("Mantenimiento") !== -1
+                    ? require("../assets/mantenimiento.png")
                     : require("../assets/policia.png");
             toast.warn(
                 <CustomToast title={body} image={image} audioSrc={src} />,
@@ -199,12 +213,26 @@ class Firebase {
                     policia: false,
                     bombero: false,
                     ambulancia: false,
+                    mantenimiento: false,
+                    centromedico: false,
+                    botiquin: false,
+                    defcivil: false,
+                    cruzroja: false,
+                    dea: false,
+                    sillaRueda: false,
                     ambulanciaCheck: false,
                     policiaCheck: false,
                     bomberoCheck: false,
                     camillaCheck: false,
                     apoyoCheck: false,
                     extintorCheck: false,
+                    mantenimientoCheck: false,
+                    centromedicoCheck: false,
+                    botiquinCheck: false,
+                    defcivilCheck: false,
+                    cruzrojaCheck: false,
+                    deaCheck: false,
+                    sillaRuedaCheck: false,
                     formatTime: "",
                     descBrigadista: "",
                     tTranscurrido: 0,
@@ -248,6 +276,48 @@ class Firebase {
         app.database()
             .ref("Casos/" + caso.Email + caso.receivedNotif.toString())
             .update({ apoyoCheck: true });
+    }
+
+    changeSeenDefCiv(caso) {
+        app.database()
+            .ref("Casos/" + caso.Email + caso.receivedNotif.toString())
+            .update({ defcivilCheck: true });
+    }
+
+    changeSeenBotiquin(caso) {
+        app.database()
+            .ref("Casos/" + caso.Email + caso.receivedNotif.toString())
+            .update({ botiquinCheck: true });
+    }
+
+    changeSeenCentroMed(caso) {
+        app.database()
+            .ref("Casos/" + caso.Email + caso.receivedNotif.toString())
+            .update({ centromedicoCheck: true });
+    }
+
+    changeSeenCruzRoja(caso) {
+        app.database()
+            .ref("Casos/" + caso.Email + caso.receivedNotif.toString())
+            .update({ cruzrojaCheck: true });
+    }
+
+    changeSeenMant(caso) {
+        app.database()
+            .ref("Casos/" + caso.Email + caso.receivedNotif.toString())
+            .update({ mantenimientoCheck: true });
+    }
+
+    changeSeenSillaRueda(caso) {
+        app.database()
+            .ref("Casos/" + caso.Email + caso.receivedNotif.toString())
+            .update({ sillaRuedaCheck: true });
+    }
+
+    changeSeenDEA(caso) {
+        app.database()
+            .ref("Casos/" + caso.Email + caso.receivedNotif.toString())
+            .update({ deaCheck: true });
     }
 
     handleRedB(caso) {

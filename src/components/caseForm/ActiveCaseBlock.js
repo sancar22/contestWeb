@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./CaseForm.css";
+import HelpListItems from "./HelpListItems.js";
 
 function ActiveCaseBlock({
     handleButtonClickCam,
@@ -8,6 +9,13 @@ function ActiveCaseBlock({
     handleButtonClickAmb,
     handleButtonClickApoyo,
     handleButtonClickBom,
+    handleButtonClickDefCivil,
+    handleButtonClickBotiquin,
+    handleButtonClickCentroMed,
+    handleButtonClickCruzRoja,
+    handleButtonClickMant,
+    handleButtonClickSillaRueda,
+    handleButtonClickDEA,
     handleRedButton,
     caso,
     ...props
@@ -77,113 +85,62 @@ function ActiveCaseBlock({
                             Objetos
                         </div>
                         {caso.camilla && (
-                            <button
-                                id="camilla"
-                                onClick={() => handleButtonClickCam(caso)}
-                                disabled={caso.camillaCheck && true}
-                                style={{
-                                    backgroundColor:
-                                        caso.camillaCheck && "green"
-                                }}
-                                className="buttonObj"
-                            >
-                                {caso.camillaCheck ? (
-                                    <strike className="texti">Camilla</strike>
-                                ) : (
-                                    <div className="texti">Camilla</div>
-                                )}
-                            </button>
+                            <HelpListItems
+                                fction={handleButtonClickCam}
+                                casoObj={caso.camillaCheck}
+                                objeto="Camilla"
+                                caso={caso}
+                            />
                         )}
-                        {caso.bombero && (
-                            <button
-                                id="bombero"
-                                onClick={() => handleButtonClickBom(caso)}
-                                disabled={caso.bomberoCheck && true}
-                                style={{
-                                    backgroundColor:
-                                        caso.bomberoCheck && "green"
-                                }}
-                                className="buttonObj"
-                            >
-                                {caso.bomberoCheck ? (
-                                    <strike className="texti">Bombero</strike>
-                                ) : (
-                                    <div className="texti">Bombero</div>
-                                )}
-                            </button>
-                        )}
-                        {caso.policia && (
-                            <button
-                                id="policia"
-                                onClick={() => handleButtonClickPol(caso)}
-                                disabled={caso.policiaCheck && true}
-                                style={{
-                                    backgroundColor:
-                                        caso.policiaCheck && "green"
-                                }}
-                                className="buttonObj"
-                            >
-                                {caso.policiaCheck ? (
-                                    <strike className="texti">Policía</strike>
-                                ) : (
-                                    <div className="texti">Policía</div>
-                                )}
-                            </button>
-                        )}
+
                         {caso.apoyo && (
-                            <button
-                                id="apoyo"
-                                onClick={() => handleButtonClickApoyo(caso)}
-                                disabled={caso.apoyoCheck && true}
-                                style={{
-                                    backgroundColor: caso.apoyoCheck && "green"
-                                }}
-                                className="buttonObj"
-                            >
-                                {caso.apoyoCheck ? (
-                                    <strike className="texti">Apoyo</strike>
-                                ) : (
-                                    <div className="texti">Apoyo</div>
-                                )}
-                            </button>
+                            <HelpListItems
+                                fction={handleButtonClickApoyo}
+                                casoObj={caso.apoyoCheck}
+                                objeto="Apoyo"
+                                caso={caso}
+                            />
                         )}
                         {caso.ambulancia && (
-                            <button
-                                id="ambulancia"
-                                onClick={() => handleButtonClickAmb(caso)}
-                                disabled={caso.ambulanciaCheck && true}
-                                style={{
-                                    backgroundColor:
-                                        caso.ambulanciaCheck && "green"
-                                }}
-                                className="buttonObj"
-                            >
-                                {caso.ambulanciaCheck ? (
-                                    <strike className="texti">
-                                        Ambulancia
-                                    </strike>
-                                ) : (
-                                    <div className="texti">Ambulancia</div>
-                                )}
-                            </button>
+                            <HelpListItems
+                                fction={handleButtonClickAmb}
+                                casoObj={caso.ambulanciaCheck}
+                                objeto="Ambulancia"
+                                caso={caso}
+                            />
                         )}
                         {caso.extintor && (
-                            <button
-                                id="extintor"
-                                onClick={() => handleButtonClickExt(caso)}
-                                disabled={caso.extintorCheck && true}
-                                style={{
-                                    backgroundColor:
-                                        caso.extintorCheck && "green"
-                                }}
-                                className="buttonObj"
-                            >
-                                {caso.extintorCheck ? (
-                                    <strike className="texti">Extintor</strike>
-                                ) : (
-                                    <div className="texti">Extintor</div>
-                                )}
-                            </button>
+                            <HelpListItems
+                                fction={handleButtonClickExt}
+                                casoObj={caso.extintorCheck}
+                                objeto="Extintor"
+                                caso={caso}
+                            />
+                        )}
+                        {caso.sillaRueda && (
+                            <HelpListItems
+                                fction={handleButtonClickSillaRueda}
+                                casoObj={caso.sillaRuedaCheck}
+                                objeto="Silla de ruedas"
+                                caso={caso}
+                            />
+                        )}
+                        {caso.dea && (
+                            <HelpListItems
+                                fction={handleButtonClickDEA}
+                                casoObj={caso.deaCheck}
+                                objeto="DEA"
+                                caso={caso}
+                            />
+                        )}
+
+                        {caso.botiquin && (
+                            <HelpListItems
+                                fction={handleButtonClickBotiquin}
+                                casoObj={caso.botiquinCheck}
+                                objeto="Botiquín"
+                                caso={caso}
+                            />
                         )}
                     </div>
                     <div className="listApoyo">
@@ -193,6 +150,64 @@ function ActiveCaseBlock({
                         >
                             Brigadistas
                         </div>
+                    </div>
+                    <div className="listApoyo">
+                        <div
+                            className="texti"
+                            style={{ width: "100%", textAlign: "center" }}
+                        >
+                            Apoyos
+                        </div>
+                        {caso.policia && (
+                            <HelpListItems
+                                fction={handleButtonClickPol}
+                                casoObj={caso.policiaCheck}
+                                objeto="Policía"
+                                caso={caso}
+                            />
+                        )}
+                        {caso.bombero && (
+                            <HelpListItems
+                                fction={handleButtonClickBom}
+                                casoObj={caso.bomberoCheck}
+                                objeto="Bombero"
+                                caso={caso}
+                            />
+                        )}
+
+                        {caso.defcivil && (
+                            <HelpListItems
+                                fction={handleButtonClickDefCivil}
+                                casoObj={caso.defcivilCheck}
+                                objeto="Defensa Civil"
+                                caso={caso}
+                            />
+                        )}
+                        {caso.cruzroja && (
+                            <HelpListItems
+                                fction={handleButtonClickCruzRoja}
+                                casoObj={caso.cruzrojaCheck}
+                                objeto="Cruz Roja"
+                                caso={caso}
+                            />
+                        )}
+                        {caso.mantenimiento && (
+                            <HelpListItems
+                                fction={handleButtonClickMant}
+                                casoObj={caso.mantenimientoCheck}
+                                objeto="Mantenimiento"
+                                caso={caso}
+                            />
+                        )}
+
+                        {caso.centromedico && (
+                            <HelpListItems
+                                fction={handleButtonClickCentroMed}
+                                casoObj={caso.centromedicoCheck}
+                                objeto="Centro Médico"
+                                caso={caso}
+                            />
+                        )}
                     </div>
                 </div>
             </div>

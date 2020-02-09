@@ -77,6 +77,46 @@ function CaseForm() {
         const objeto = "Apoyo";
         firebase.miniPushNotification(caso.Expotoken, objeto);
     };
+
+    const handleButtonClickDefCivil = caso => {
+        firebase.changeSeenDefCiv(caso);
+        const objeto = "Defensa Civil";
+        firebase.miniPushNotification(caso.Expotoken, objeto);
+    };
+
+    const handleButtonClickBotiquin = caso => {
+        firebase.changeSeenBotiquin(caso);
+        const objeto = "Botiquín";
+        firebase.miniPushNotification(caso.Expotoken, objeto);
+    };
+
+    const handleButtonClickCentroMed = caso => {
+        firebase.changeSeenCentroMed(caso);
+        const objeto = "Centro Médico";
+        firebase.miniPushNotification(caso.Expotoken, objeto);
+    };
+
+    const handleButtonClickCruzRoja = caso => {
+        firebase.changeSeenCruzRoja(caso);
+        const objeto = "Cruz Roja";
+        firebase.miniPushNotification(caso.Expotoken, objeto);
+    };
+
+    const handleButtonClickMant = caso => {
+        firebase.changeSeenMant(caso);
+        const objeto = "Mantenimiento";
+        firebase.miniPushNotification(caso.Expotoken, objeto);
+    };
+    const handleButtonClickSillaRueda = caso => {
+        firebase.changeSeenSillaRueda(caso);
+        const objeto = "Silla de ruedas";
+        firebase.miniPushNotification(caso.Expotoken, objeto);
+    };
+    const handleButtonClickDEA = caso => {
+        firebase.changeSeenDEA(caso);
+        const objeto = "DEA";
+        firebase.miniPushNotification(caso.Expotoken, objeto);
+    };
     const handleRedButton = caso => {
         firebase.handleRedB(caso);
     };
@@ -89,6 +129,13 @@ function CaseForm() {
             handleButtonClickPol={handleButtonClickPol}
             handleButtonClickApoyo={handleButtonClickApoyo}
             handleButtonClickAmb={handleButtonClickAmb}
+            handleButtonClickDefCivil={handleButtonClickDefCivil}
+            handleButtonClickBotiquin={handleButtonClickBotiquin}
+            handleButtonClickCentroMed={handleButtonClickCentroMed}
+            handleButtonClickCruzRoja={handleButtonClickCruzRoja}
+            handleButtonClickMant={handleButtonClickMant}
+            handleButtonClickSillaRueda={handleButtonClickSillaRueda}
+            handleButtonClickDEA={handleButtonClickDEA}
             handleRedButton={handleRedButton}
         />
     ));
