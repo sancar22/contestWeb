@@ -18,6 +18,7 @@ function ActiveCaseBlock({
     handleButtonClickDEA,
     handleRedButton,
     caso,
+    brigadistas,
     ...props
 }) {
     const [timer, setTimer] = useState(0);
@@ -32,6 +33,16 @@ function ActiveCaseBlock({
             .filter((v, i) => v !== "00" || i > 0)
             .join(":");
     };
+
+    const brigadistasVinculados = brigadistas.brigadeListOnline
+        .filter(item => item.apoyandoEmail === caso.Email)
+        .map(item => {
+            return (
+                <div className="texti" style={{ textAlign: "center" }}>
+                    {item.nombre + " " + item.apellido}
+                </div>
+            );
+        });
 
     useEffect(() => {
         let b = caso.date;
@@ -97,7 +108,7 @@ function ActiveCaseBlock({
                             <HelpListItems
                                 fction={handleButtonClickApoyo}
                                 casoObj={caso.apoyoCheck}
-                                objeto="Apoyo"
+                                objeto={` Apoyo (${caso.apoyoReq})`}
                                 caso={caso}
                             />
                         )}
@@ -143,14 +154,7 @@ function ActiveCaseBlock({
                             />
                         )}
                     </div>
-                    <div className="listApoyo">
-                        <div
-                            className="texti"
-                            style={{ width: "100%", textAlign: "center" }}
-                        >
-                            Brigadistas
-                        </div>
-                    </div>
+
                     <div className="listApoyo">
                         <div
                             className="texti"
@@ -210,6 +214,18 @@ function ActiveCaseBlock({
                         )}
                     </div>
                 </div>
+
+                <div style={{ textAlign: "center" }} className="texti">
+                    Brigadistas Apoyando
+                </div>
+                {caso.active === true
+                    ? brigadistasVinculados.length > 0 && brigadistasVinculados
+                    : caso.helpArray &&
+                      caso.helpArray.map(item => (
+                          <div lassName="texti" style={{ textAlign: "center" }}>
+                              {item.nombre + " " + item.apellido}
+                          </div>
+                      ))}
             </div>
         </div>
     );

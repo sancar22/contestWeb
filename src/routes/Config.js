@@ -132,6 +132,15 @@ class Firebase {
         );
     }
 
+    helpExpired(data) {
+        return data.map(brigade =>
+            app
+                .database()
+                .ref("/Users/" + brigade.Email.split(".")[0])
+                .update({ help: false })
+        );
+    }
+
     updateRejectedCases(data) {
         return data.map(brigade =>
             app
@@ -237,6 +246,7 @@ class Firebase {
                     descBrigadista: "",
                     tTranscurrido: 0,
                     closed: true,
+                    apoyoReq: 0,
                     image1: "image1",
                     image2: "image2",
                     nombre: brigade.nombre,
@@ -373,6 +383,45 @@ class Firebase {
             );
         });
     }
+
+    helpNotification(brigade, fillCase, casos) {
+        const PUSH_ENDPOINT = "https://exp.host/--/api/v2/push/send";
+        const arrayInfo = casos.filter(
+            info =>
+                info.active === true &&
+                info.Email === fillCase.brigApoyado.email.split(".")[0]
+        );
+        let data = {
+            to: brigade.map(brigada => brigada.Expotoken),
+            title: `Código ${arrayInfo[0].codigo}, Categoría: ${arrayInfo[0].categoria}`,
+            body: `¡Diríjase de inmediato al ${
+                arrayInfo[0].lugar
+            } para apoyar a ${arrayInfo[0].nombre +
+                " " +
+                arrayInfo[0].apellido}!`,
+            sound: "default",
+            ttl: 5, //MODIFICAR DESPUÉS
+            data: {
+                apoyo: "1",
+                infoCaso: arrayInfo[0],
+                notifReceived: fillCase.brigApoyado.notif
+            },
+            priority: "high"
+        };
+        fetch(PUSH_ENDPOINT, {
+            mode: "no-cors",
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(() => {
+            setTimeout(() => {
+                this.helpExpired(brigade);
+            }, 10000);
+        });
+    }
     pushNotification(dataB, fillCase) {
         const PUSH_ENDPOINT = "https://exp.host/--/api/v2/push/send";
         console.log(fillCase);
@@ -460,6 +509,14 @@ class Firebase {
                 notif: false,
                 ocupado: false,
                 expired: false,
+                help: false,
+                helpOcupado: false,
+                trulyHelped: false,
+                requestedHelp: 0,
+                helpdidnt: 0,
+                helpdid: 0,
+                apoyandoEmail: "",
+                apoyandoNotifRec: 0,
                 celular: celular,
                 Longitud: -74.851163,
                 acceptRatio: 0

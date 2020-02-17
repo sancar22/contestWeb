@@ -27,6 +27,7 @@ import ActiveCaseBlock from "./ActiveCaseBlock";
 function CaseForm() {
     const brigadistas = useSelector(state => state.brigada);
     const fillCase = useSelector(state => state.fillCase);
+    const casos = useSelector(state => state.casos);
     const [optionsMenu, setOptionsMenu] = useState("InfoCaso");
     const dispatch = useDispatch();
     const selectedBrigade = brigadistas.selectedBrigade.map(
@@ -43,9 +44,20 @@ function CaseForm() {
         .map((brigade, index) => {
             return {
                 value: index.toString(),
-                label: `${brigade.nombre + " " + brigade.apellido}`
+                label: `${brigade.nombre + " " + brigade.apellido}`,
+                name: brigade.nombre,
+                apellido: brigade.apellido,
+                email: brigade.Email,
+                notif: brigade.receivedNotif,
+                requestedHelp: brigade.requestedHelp
             };
         });
+
+    const notBusyButOnlineBrigade = brigadistas.brigadeListOnline.filter(
+        brigade => {
+            return brigade.ocupado === false;
+        }
+    );
 
     const handleButtonClickExt = caso => {
         firebase.changeSeenExt(caso);
@@ -137,6 +149,7 @@ function CaseForm() {
             handleButtonClickSillaRueda={handleButtonClickSillaRueda}
             handleButtonClickDEA={handleButtonClickDEA}
             handleRedButton={handleRedButton}
+            brigadistas={brigadistas}
         />
     ));
 
@@ -160,18 +173,17 @@ function CaseForm() {
     const checkFunctionHelp = brigApoyados => {
         brigApoyados === null
             ? toast(<CustomToast title="¡Seleccione brigadista a apoyar!" />)
-            : brigadistas.selectedBrigade.length < 1
+            : brigApoyados.requestedHelp === 0
             ? toast(
-                  <CustomToast title="¡Seleccione a un brigadista de apoyo!" />
-              )
-            : brigadistas.selectedBrigade.length > 3
-            ? toast(
-                  <CustomToast title="¡Solo puede seleccionar a máximo 3 brigadistas de apoyo!" />
+                  <CustomToast title="¡El brigadista seleccionado no ha solicitado apoyo!" />
               )
             : sendHelp();
     };
 
-    const sendHelp = () => {};
+    const sendHelp = () => {
+        firebase.helpNotification(notBusyButOnlineBrigade, fillCase, casos);
+        dispatch(helpBrigade(null));
+    };
 
     function sendCase() {
         //Botón para enviar notificaciones

@@ -45,7 +45,10 @@ function TableC({ index, item, photoLoader, length, ...props }) {
                 </div>
             </td>
             <td>
-                <div>No disponible por el momento.</div>
+                {item.helpArray &&
+                    item.helpArray.map(item => (
+                        <div>{item.nombre + " " + item.apellido}</div>
+                    ))}
             </td>
             <td>{item.descBrigadista}</td>
             <td>

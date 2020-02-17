@@ -7,48 +7,49 @@ import "./CaseForm.css";
 import { helpBrigade } from "../../actions/index";
 import { useDispatch } from "react-redux";
 const HelpFormC = ({
-  selectedBrigade,
-  fillCase,
-  filterOptions1,
-  helpCaseFilter,
-  checkFunctionHelp
+    fillCase,
+    filterOptions1,
+    helpCaseFilter,
+    checkFunctionHelp
 }) => {
-  const dispatch = useDispatch();
-  return (
-    <React.Fragment>
-      <div className="bod">
-        <br />
-        <div className="texto">Brigadistas que van a apoyar:</div>
-        <ul className="list">{selectedBrigade}</ul>
-        <div className="texto" style={{ position: "relative", top: "3vh" }}>
-          Brigadista a apoyar:
-        </div>
-        <div
-          style={{
-            width: "26.3vw",
-            marginLeft: "1.8vw",
-            position: "relative",
-            top: "3vh"
-          }}
-        >
-          <VirtualizedSelect
-            name="lugar"
-            value={fillCase.brigApoyado}
-            options={helpCaseFilter}
-            filterOptions={filterOptions1}
-            onChange={val => dispatch(helpBrigade(val))}
-          />
-        </div>
-        <button
-          className="but"
-          onClick={() => checkFunctionHelp(fillCase.brigApoyado)}
-          style={{ height: "7vh" }}
-        >
-          Enviar Apoyo
-        </button>
-      </div>
-    </React.Fragment>
-  );
+    const dispatch = useDispatch();
+    return (
+        <React.Fragment>
+            <div className="bod">
+                <br />
+
+                <div
+                    className="texto"
+                    style={{ position: "relative", top: "3vh" }}
+                >
+                    Brigadista a apoyar:
+                </div>
+                <div
+                    style={{
+                        width: "26.3vw",
+                        marginLeft: "1.8vw",
+                        position: "relative",
+                        top: "3vh"
+                    }}
+                >
+                    <VirtualizedSelect
+                        name="lugar"
+                        value={fillCase.brigApoyado}
+                        options={helpCaseFilter}
+                        filterOptions={filterOptions1}
+                        onChange={val => dispatch(helpBrigade(val))}
+                    />
+                </div>
+                <button
+                    className="but"
+                    onClick={() => checkFunctionHelp(fillCase.brigApoyado)}
+                    style={{ height: "7vh" }}
+                >
+                    Enviar Apoyo
+                </button>
+            </div>
+        </React.Fragment>
+    );
 };
 
 export default HelpFormC;

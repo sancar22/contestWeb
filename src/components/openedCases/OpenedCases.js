@@ -12,6 +12,7 @@ import { css } from "@emotion/core";
 import Timer from "../timer/Timer";
 function OpenedCases(props) {
     const allCases = useSelector(state => state.casos);
+    const brigadistas = useSelector(state => state.brigada);
     const counter = useRef(0);
     const [loading, setLoading] = useState(false);
     const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
@@ -46,6 +47,7 @@ function OpenedCases(props) {
             setLoading(false);
         }
     };
+
     return (
         <div style={{ overflow: "hidden", height: "100vh", width: "100vw" }}>
             <Navigation sideFunction={drawerToggleClickHandler} />
@@ -84,6 +86,23 @@ function OpenedCases(props) {
                         allCases
                             .filter(data => data.active === true)
                             .map((item, index) => {
+                                const brigadistasVinculados = brigadistas.brigadeListOnline
+                                    .filter(
+                                        item2 =>
+                                            item2.apoyandoEmail === item.Email
+                                    )
+                                    .map(item => {
+                                        return (
+                                            <div
+                                                className="texti"
+                                                style={{ textAlign: "center" }}
+                                            >
+                                                {item.nombre +
+                                                    " " +
+                                                    item.apellido}
+                                            </div>
+                                        );
+                                    });
                                 return (
                                     <tr key={index}>
                                         <td>
@@ -161,9 +180,8 @@ function OpenedCases(props) {
                                             </div>
                                         </td>
                                         <td>
-                                            <div>
-                                                No disponible por el momento.
-                                            </div>
+                                            {brigadistasVinculados.length > 0 &&
+                                                brigadistasVinculados}
                                         </td>
                                         <td>{item.descBrigadista}</td>
                                         <td>
