@@ -134,10 +134,14 @@ function HomePage(props) {
                     <div>{brigadista.nombre + " " + brigadista.apellido}</div>
                     <br />
                     <div>Casos Aceptados: {brigadista.accepted}</div>
-                    <br />
+
                     <div>Casos Rechazados: {brigadista.rejected}</div>
-                    <br />
+
                     <div>Casos Recibidos: {brigadista.receivedNotif}</div>
+
+                    <div>Apoyo (Sí): {brigadista.helpdid}</div>
+
+                    <div>Apoyo (No): {brigadista.helpdidnt}</div>
                 </div>
             </Popup>
         </Marker>
