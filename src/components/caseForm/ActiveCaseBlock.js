@@ -73,19 +73,19 @@ function ActiveCaseBlock({
             </div>
             <br />
             <div className="texti">
-                Nombre: {caso.nombre + " " + caso.apellido}
+                Name: {caso.nombre + " " + caso.apellido}
             </div>
-            <div className="texti">Celular: {caso.celular}</div>
-            <div className="texti">Lugar: {caso.lugar}</div>
+            <div className="texti">Cellphone: {caso.celular}</div>
+            <div className="texti">Place: {caso.lugar}</div>
 
-            <div className="texti">Código: {caso.codigo}</div>
-            <div className="texti">Categoría: {caso.categoria}</div>
-            <div className="texti">Tiempo activo: {toHHMMSS(timer)}</div>
+            <div className="texti">Code: {caso.codigo}</div>
+            <div className="texti">Category: {caso.categoria}</div>
+            <div className="texti">Active Time: {toHHMMSS(timer)}</div>
 
             <br />
             <div className="requests">
                 <div style={{ textAlign: "center" }} className="texti">
-                    Apoyos solicitados
+                    Requested Help
                 </div>
                 <div className="requestsContainer">
                     <div className="objects">
@@ -93,13 +93,13 @@ function ActiveCaseBlock({
                             className="texti"
                             style={{ width: "100%", textAlign: "center" }}
                         >
-                            Objetos
+                            Objects
                         </div>
                         {caso.camilla && (
                             <HelpListItems
                                 fction={handleButtonClickCam}
                                 casoObj={caso.camillaCheck}
-                                objeto="Camilla"
+                                objeto="Stretcher"
                                 caso={caso}
                             />
                         )}
@@ -108,7 +108,7 @@ function ActiveCaseBlock({
                             <HelpListItems
                                 fction={handleButtonClickApoyo}
                                 casoObj={caso.apoyoCheck}
-                                objeto={` Apoyo (${caso.apoyoReq})`}
+                                objeto={` Help (${caso.apoyoReq})`}
                                 caso={caso}
                             />
                         )}
@@ -116,7 +116,7 @@ function ActiveCaseBlock({
                             <HelpListItems
                                 fction={handleButtonClickAmb}
                                 casoObj={caso.ambulanciaCheck}
-                                objeto="Ambulancia"
+                                objeto="Ambulance"
                                 caso={caso}
                             />
                         )}
@@ -124,7 +124,7 @@ function ActiveCaseBlock({
                             <HelpListItems
                                 fction={handleButtonClickExt}
                                 casoObj={caso.extintorCheck}
-                                objeto="Extintor"
+                                objeto="Extinguisher"
                                 caso={caso}
                             />
                         )}
@@ -132,7 +132,7 @@ function ActiveCaseBlock({
                             <HelpListItems
                                 fction={handleButtonClickSillaRueda}
                                 casoObj={caso.sillaRuedaCheck}
-                                objeto="Silla de ruedas"
+                                objeto="Wheelchair"
                                 caso={caso}
                             />
                         )}
@@ -140,7 +140,7 @@ function ActiveCaseBlock({
                             <HelpListItems
                                 fction={handleButtonClickDEA}
                                 casoObj={caso.deaCheck}
-                                objeto="DEA"
+                                objeto="AED"
                                 caso={caso}
                             />
                         )}
@@ -149,7 +149,7 @@ function ActiveCaseBlock({
                             <HelpListItems
                                 fction={handleButtonClickBotiquin}
                                 casoObj={caso.botiquinCheck}
-                                objeto="Botiquín"
+                                objeto="Med Kit"
                                 caso={caso}
                             />
                         )}
@@ -160,13 +160,13 @@ function ActiveCaseBlock({
                             className="texti"
                             style={{ width: "100%", textAlign: "center" }}
                         >
-                            Apoyos
+                            Assistance
                         </div>
                         {caso.policia && (
                             <HelpListItems
                                 fction={handleButtonClickPol}
                                 casoObj={caso.policiaCheck}
-                                objeto="Policía"
+                                objeto="Police"
                                 caso={caso}
                             />
                         )}
@@ -174,7 +174,7 @@ function ActiveCaseBlock({
                             <HelpListItems
                                 fction={handleButtonClickBom}
                                 casoObj={caso.bomberoCheck}
-                                objeto="Bombero"
+                                objeto="Firemen"
                                 caso={caso}
                             />
                         )}
@@ -183,7 +183,7 @@ function ActiveCaseBlock({
                             <HelpListItems
                                 fction={handleButtonClickDefCivil}
                                 casoObj={caso.defcivilCheck}
-                                objeto="Defensa Civil"
+                                objeto="Civil Defense"
                                 caso={caso}
                             />
                         )}
@@ -191,7 +191,7 @@ function ActiveCaseBlock({
                             <HelpListItems
                                 fction={handleButtonClickCruzRoja}
                                 casoObj={caso.cruzrojaCheck}
-                                objeto="Cruz Roja"
+                                objeto="Red Cross"
                                 caso={caso}
                             />
                         )}
@@ -199,7 +199,7 @@ function ActiveCaseBlock({
                             <HelpListItems
                                 fction={handleButtonClickMant}
                                 casoObj={caso.mantenimientoCheck}
-                                objeto="Mantenimiento"
+                                objeto="Maintenance"
                                 caso={caso}
                             />
                         )}
@@ -208,7 +208,7 @@ function ActiveCaseBlock({
                             <HelpListItems
                                 fction={handleButtonClickCentroMed}
                                 casoObj={caso.centromedicoCheck}
-                                objeto="Centro Médico"
+                                objeto="Medical Center"
                                 caso={caso}
                             />
                         )}
@@ -216,7 +216,7 @@ function ActiveCaseBlock({
                 </div>
 
                 <div style={{ textAlign: "center" }} className="texti">
-                    Brigadistas Apoyando
+                    Brigaders Helping
                 </div>
                 {caso.active === true
                     ? brigadistasVinculados.length > 0 && brigadistasVinculados

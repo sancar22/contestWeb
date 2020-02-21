@@ -70,7 +70,7 @@ function ClosedCases(props) {
     };
 
     const filterNow = (field, option) => {
-        if (option.label === "Nombre") {
+        if (option.label === "Name") {
             setShowPlace(false);
             setShowCategory(false);
             setShowName(true);
@@ -99,7 +99,7 @@ function ClosedCases(props) {
                         );
                     })
             );
-        } else if (option.label === "Lugar") {
+        } else if (option.label === "Place") {
             setShowPlace(true);
             setShowCategory(false);
             setShowName(false);
@@ -126,7 +126,7 @@ function ClosedCases(props) {
                         );
                     })
             );
-        } else if (option.label === "Categoría") {
+        } else if (option.label === "Category") {
             setShowPlace(false); // Acuerda de agregar nuevas cosas y cambiar estados
             setShowCategory(true);
             setShowName(false);
@@ -154,8 +154,7 @@ function ClosedCases(props) {
                         );
                     })
             );
-        } else if (option.label === "Fecha") {
-            console.log("Filtered by date");
+        } else if (option.label === "Date") {
             setShowPlace(false);
             setShowCategory(false);
             setShowName(false);
@@ -257,13 +256,13 @@ function ClosedCases(props) {
                 </div>
                 <table className="tableClosed">
                     <tr>
-                        <th>Brigadista</th>
-                        <th>Detalles</th>
-                        <th>Descripción</th>
-                        <th>Apoyos</th>
-                        <th>Otros Brigadistas</th>
-                        <th>Proceder</th>
-                        <th>Fotos</th>
+                        <th>Brigader</th>
+                        <th>Details</th>
+                        <th>Description</th>
+                        <th>Help</th>
+                        <th>Other Brigaders</th>
+                        <th>Procedure</th>
+                        <th>Photos</th>
                     </tr>
                     {allCases.length > 0 && showName === true
                         ? filterName

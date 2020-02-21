@@ -22,7 +22,7 @@ const HelpFormC = ({
                     className="texto"
                     style={{ position: "relative", top: "3vh" }}
                 >
-                    Brigadista a apoyar:
+                    Brigader to help:
                 </div>
                 <div
                     style={{
@@ -45,7 +45,7 @@ const HelpFormC = ({
                     onClick={() => checkFunctionHelp(fillCase.brigApoyado)}
                     style={{ height: "7vh" }}
                 >
-                    Enviar Apoyo
+                    Send Help
                 </button>
             </div>
         </React.Fragment>

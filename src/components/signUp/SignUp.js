@@ -168,11 +168,11 @@ function SignUp(props) {
                 />
                 <div className="twoContainer" style={{ paddingBottom: 0 }}>
                     <div className="inputCol">
-                        <div className="textDiv">Celular:</div>
+                        <div className="textDiv">Cellphone:</div>
                         <FormInput
                             name="Cell Phone"
                             type="text"
-                            placeholder="Celular"
+                            placeholder="Cellphone"
                             className="inputSignUp"
                             value={cellPhone}
                             required
@@ -183,11 +183,11 @@ function SignUp(props) {
 
                 <div className="twoContainer">
                     <div className="inputCol">
-                        <div className="textDiv">Primer Nombre:</div>
+                        <div className="textDiv">First Name:</div>
                         <FormInput
                             name="First Name"
                             type="text"
-                            placeholder="Primer Nombre"
+                            placeholder="First Name"
                             className="inputSignUp"
                             value={firstName}
                             required
@@ -196,11 +196,11 @@ function SignUp(props) {
                     </div>
 
                     <div className="inputCol">
-                        <div className="textDiv">Primer Apellido:</div>
+                        <div className="textDiv">Last Name:</div>
                         <FormInput
                             name="Last Name"
                             type="text"
-                            placeholder="Primer Apellido"
+                            placeholder="Last Name"
                             className="inputSignUp"
                             value={lastName}
                             required
@@ -211,11 +211,11 @@ function SignUp(props) {
 
                 <div className="twoContainer">
                     <div className="inputCol">
-                        <div className="textDiv">Segundo Apellido:</div>
+                        <div className="textDiv">Second Last Name:</div>
                         <FormInput
                             name="Second Last"
                             type="text"
-                            placeholder="Segundo Apellido"
+                            placeholder="Second Last Name:"
                             className="inputSignUp"
                             value={secondLast}
                             required
@@ -224,11 +224,11 @@ function SignUp(props) {
                     </div>
 
                     <div className="inputCol">
-                        <div className="textDiv">Correo Electrónico:</div>
+                        <div className="textDiv">Email: </div>
                         <FormInputE
                             name="Email"
                             type="text"
-                            placeholder="Correo Electrónico"
+                            placeholder="Email:"
                             className="inputSignUp"
                             value={email}
                             required
@@ -239,7 +239,7 @@ function SignUp(props) {
 
                 <div className="twoContainer">
                     <div className="inputCol">
-                        <div className="textDiv">Contraseña:</div>
+                        <div className="textDiv">Password:</div>
                         <FormInput
                             name="Pass"
                             type="password"
@@ -252,7 +252,7 @@ function SignUp(props) {
                     </div>
 
                     <div className="inputCol">
-                        <div className="textDiv">Confirmar Contraseña:</div>
+                        <div className="textDiv">Confirm Password:</div>
                         <FormInput
                             name="PassConf"
                             type="password"
@@ -268,7 +268,7 @@ function SignUp(props) {
                     name=""
                     type="submit"
                     className="buttonSignUp"
-                    value="Registrarse"
+                    value="Register"
                     onClick={register}
                 />
             </form>

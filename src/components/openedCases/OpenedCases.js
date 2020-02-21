@@ -73,14 +73,14 @@ function OpenedCases(props) {
             >
                 <table className="tableClosed">
                     <tr>
-                        <th>Brigadista</th>
-                        <th>Detalles</th>
-                        <th>Descripción</th>
-                        <th>Apoyos</th>
-                        <th>Otros Brigadistas</th>
-                        <th>Proceder</th>
-                        <th>Fotos</th>
-                        <th>Tiempo</th>
+                        <th>Brigader</th>
+                        <th>Details</th>
+                        <th>Description</th>
+                        <th>Help</th>
+                        <th>Other Brigaders</th>
+                        <th>Procedure</th>
+                        <th>Photos</th>
+                        <th>Time</th>
                     </tr>
                     {allCases.length > 0 &&
                         allCases
@@ -115,19 +115,19 @@ function OpenedCases(props) {
                                                     flexDirection: "column"
                                                 }}
                                             >
-                                                <div>Lugar: {item.lugar}</div>
-                                                <div>Código: {item.codigo}</div>
+                                                <div>Place: {item.lugar}</div>
+                                                <div>Code: {item.codigo}</div>
                                                 <div>
-                                                    Categoría: {item.categoria}
+                                                    Category: {item.categoria}
                                                 </div>
                                                 <div>
-                                                    Comienzo: {item.inicioFecha}
+                                                    Start: {item.inicioFecha}
                                                 </div>
                                                 <div>
-                                                    Fin: {item.finalFecha}
+                                                    End: {item.finalFecha}
                                                 </div>
                                                 <div>
-                                                    Tiempo Total:{" "}
+                                                    Total Time:{" "}
                                                     {item.formatTime}
                                                 </div>
                                             </div>
@@ -143,39 +143,39 @@ function OpenedCases(props) {
                                                 }}
                                             >
                                                 {item.bombero && (
-                                                    <div>Bombero</div>
+                                                    <div>Firefighters</div>
                                                 )}
                                                 {item.ambulancia && (
-                                                    <div>Ambulancia</div>
+                                                    <div>Ambulance</div>
                                                 )}
                                                 {item.camilla && (
-                                                    <div>Camilla</div>
+                                                    <div>Stretcher</div>
                                                 )}
                                                 {item.extintor && (
-                                                    <div>Extintor</div>
+                                                    <div>Extinguisher</div>
                                                 )}
                                                 {item.policia && (
-                                                    <div>Policía</div>
+                                                    <div>Police</div>
                                                 )}
-                                                {item.apoyo && <div>Apoyo</div>}
+                                                {item.apoyo && <div>Help</div>}
                                                 {item.cruzroja && (
-                                                    <div>Cruz Roja</div>
+                                                    <div>Red Cross</div>
                                                 )}
-                                                {item.dea && <div>DEA</div>}
+                                                {item.dea && <div>AED</div>}
                                                 {item.defcivil && (
-                                                    <div>Defensa Civil</div>
+                                                    <div>Civil Defense</div>
                                                 )}
                                                 {item.botiquin && (
-                                                    <div>Botiquín</div>
+                                                    <div>Med Kit</div>
                                                 )}
                                                 {item.centromedico && (
-                                                    <div>Centro Médico</div>
+                                                    <div>Medical Center</div>
                                                 )}
                                                 {item.mantenimiento && (
-                                                    <div>Mantenimiento</div>
+                                                    <div>Maintenance</div>
                                                 )}
                                                 {item.sillaRueda && (
-                                                    <div>Silla de Ruedas</div>
+                                                    <div>Wheelchair</div>
                                                 )}
                                             </div>
                                         </td>

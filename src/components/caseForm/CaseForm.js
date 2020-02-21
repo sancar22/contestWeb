@@ -208,7 +208,7 @@ function CaseForm() {
                     }}
                     onClick={() => setOptionsMenu("InfoCaso")}
                 >
-                    Info. Casos
+                    Case Info.
                 </button>
                 <button
                     className="optionsCase"
@@ -218,7 +218,7 @@ function CaseForm() {
                     }}
                     onClick={() => setOptionsMenu("Generar")}
                 >
-                    Generar Caso
+                    Generate Case
                 </button>
                 <button
                     className="optionsCase"
@@ -228,7 +228,7 @@ function CaseForm() {
                     }}
                     onClick={() => setOptionsMenu("Apoyo")}
                 >
-                    Apoyo
+                    Assistance
                 </button>
             </div>
             {optionsMenu === "Generar" ? (

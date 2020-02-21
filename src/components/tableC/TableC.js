@@ -11,12 +11,12 @@ function TableC({ index, item, photoLoader, length, ...props }) {
                         flexDirection: "column"
                     }}
                 >
-                    <div>Lugar: {item.lugar}</div>
-                    <div>Código: {item.codigo}</div>
-                    <div>Categoría: {item.categoria}</div>
-                    <div>Comienzo: {item.inicioFecha}</div>
-                    <div>Fin: {item.finalFecha}</div>
-                    <div>Tiempo Total: {item.formatTime}</div>
+                    <div>Place: {item.lugar}</div>
+                    <div>Code: {item.codigo}</div>
+                    <div>Category: {item.categoria}</div>
+                    <div>Start: {item.inicioFecha}</div>
+                    <div>End: {item.finalFecha}</div>
+                    <div>Total Time: {item.formatTime}</div>
                 </div>
             </td>
             <td>
@@ -29,19 +29,19 @@ function TableC({ index, item, photoLoader, length, ...props }) {
                         display: "flex"
                     }}
                 >
-                    {item.bombero && <div>Bombero</div>}
-                    {item.ambulancia && <div>Ambulancia</div>}
-                    {item.camilla && <div>Camilla</div>}
-                    {item.extintor && <div>Extintor</div>}
-                    {item.policia && <div>Policía</div>}
-                    {item.apoyo && <div>Apoyo</div>}
-                    {item.cruzroja && <div>Cruz Roja</div>}
-                    {item.dea && <div>DEA</div>}
-                    {item.defcivil && <div>Defensa Civil</div>}
-                    {item.botiquin && <div>Botiquín</div>}
-                    {item.centromedico && <div>Centro Médico</div>}
-                    {item.mantenimiento && <div>Mantenimiento</div>}
-                    {item.sillaRueda && <div>Silla de Ruedas</div>}
+                    {item.bombero && <div>Firefighters</div>}
+                    {item.ambulancia && <div>Ambulance</div>}
+                    {item.camilla && <div>Stretcher</div>}
+                    {item.extintor && <div>Extinguisher</div>}
+                    {item.policia && <div>Police</div>}
+                    {item.apoyo && <div>Help</div>}
+                    {item.cruzroja && <div>Red Cross</div>}
+                    {item.dea && <div>AED</div>}
+                    {item.defcivil && <div>Civil Defense</div>}
+                    {item.botiquin && <div>Med Kit</div>}
+                    {item.centromedico && <div>Medical Center</div>}
+                    {item.mantenimiento && <div>Maintenance</div>}
+                    {item.sillaRueda && <div>Wheelchair</div>}
                 </div>
             </td>
             <td>

@@ -46,13 +46,13 @@ const CaseFormC = ({
         <React.Fragment>
             <div className="bod">
                 <br />
-                <div className="texto">Brigadistas seleccionados:</div>
+                <div className="texto">Selected Helpers:</div>
                 <ul className="list">{selectedBrigade}</ul>
                 <div
                     className="texto"
                     style={{ position: "relative", top: "3vh" }}
                 >
-                    Lugar de emergencia:
+                    Place of emergency:
                 </div>
                 <div
                     style={{
@@ -77,13 +77,13 @@ const CaseFormC = ({
                 >
                     <div className="div2" style={{ width: "30%" }}>
                         <div className="texti" style={{ marginLeft: "2vw" }}>
-                            Código:
+                            Code:
                         </div>
                     </div>
 
                     <div className="div2" style={{ width: "70%" }}>
                         <div className="texti" style={{ marginLeft: "3.9vw" }}>
-                            Categoría:
+                            Category
                         </div>
                     </div>
                 </div>
@@ -115,11 +115,11 @@ const CaseFormC = ({
                 </div>
                 <div style={{ top: "9vh", position: "relative" }}>
                     <div className="texti" style={{ marginLeft: "2.2vw" }}>
-                        Descripción adicional:
+                        Additional Description:
                     </div>
                 </div>
                 <textarea
-                    placeholder="Añadir información adicional pertinente..."
+                    placeholder="Add important additional information..."
                     className="inputtext"
                     value={fillCase.descAdicional}
                     onChange={event =>
@@ -137,7 +137,7 @@ const CaseFormC = ({
                         )
                     }
                 >
-                    Enviar Caso
+                    Send Case
                 </button>
             </div>
         </React.Fragment>

@@ -1,23 +1,22 @@
 export const options = [
     // ...
-    { value: "1", label: "Nombre" },
-    { value: "2", label: "Lugar" },
-    { value: "3", label: "Categoría" },
-    { value: "4", label: "Fecha" },
-    { value: "5", label: "Tiempo" }
+    { value: "1", label: "Name" },
+    { value: "2", label: "Place" },
+    { value: "3", label: "Category" },
+    { value: "4", label: "Date" }
 ];
 
 export const bothCategories = [
-    { value: "6", label: "Caída a nivel" },
-    { value: "7", label: "Serpiente" },
-    { value: "8", label: "Crisis psicológica" },
-    { value: "9", label: "Fractura" },
-    { value: "10", label: "Persona desmayada" },
-    { value: "11", label: "Paro cardíaco" },
-    { value: "12", label: "Conato de incendio" },
-    { value: "13", label: "Derrame" },
-    { value: "14", label: "Amenaza de bomba" },
-    { value: "15", label: "Tiroteo" },
-    { value: "16", label: "Cortocircuito" },
-    { value: "17", label: "Otro" }
+    { value: "6", label: "Fall" },
+    { value: "7", label: "Snake" },
+    { value: "8", label: "Psychological Crisis" },
+    { value: "9", label: "Fracture" },
+    { value: "10", label: "Fainted Person" },
+    { value: "11", label: "Heart Attack" },
+    { value: "12", label: "Fire" },
+    { value: "13", label: "Flood" },
+    { value: "14", label: "Bomb" },
+    { value: "15", label: "Shooting" },
+    { value: "16", label: "Shortcircuit" },
+    { value: "17", label: "Other" }
 ];

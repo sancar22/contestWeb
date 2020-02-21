@@ -57,20 +57,20 @@ export const optionsCod = [
 ];
 
 export const optionsCategory1 = [
-    { value: "25", label: "Caída a nivel" },
-    { value: "26", label: "Serpiente" },
-    { value: "27", label: "Crisis psicológica" },
-    { value: "28", label: "Fractura" },
-    { value: "29", label: "Persona desmayada" },
-    { value: "30", label: "Paro cardíaco" },
-    { value: "31", label: "Otro" }
+    { value: "25", label: "Fall" },
+    { value: "26", label: "Snake" },
+    { value: "27", label: "Psychological Crisis" },
+    { value: "28", label: "Fracture" },
+    { value: "29", label: "Fainted Person" },
+    { value: "30", label: "Heart Attack" },
+    { value: "31", label: "Other" }
 ];
 
 export const optionsCategory2 = [
-    { value: "32", label: "Conato de incendio" },
-    { value: "33", label: "Derrame" },
-    { value: "34", label: "Amenaza de bomba" },
-    { value: "35", label: "Tiroteo" },
-    { value: "36", label: "Cortocircuito" },
-    { value: "37", label: "Otro" }
+    { value: "32", label: "Fire" },
+    { value: "33", label: "Flood" },
+    { value: "34", label: "Bomb" },
+    { value: "35", label: "Shooting" },
+    { value: "36", label: "Shortcircuit" },
+    { value: "37", label: "Other" }
 ];
